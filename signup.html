@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입 · 김천침례교회</title>
+<meta name="description" content="김천침례교회 교인 전용 회원가입.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%AA%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="index.html" class="brand">
+      <span class="mark">✝</span>
+      <span>
+        <span class="title">김천침례교회</span><br>
+        <span class="sub">GIMCHEON BAPTIST CHURCH · SINCE 1951</span>
+      </span>
+    </a>
+    <nav>
+      <button class="menu-btn" aria-label="메뉴" onclick="toggleMenu()">☰</button>
+      <ul id="menu">
+        <li><a href="index.html">메인</a></li>
+        <li><a href="intro.html">소개</a></li>
+        <li><a href="history.html">연혁</a></li>
+        <li><a href="album.html">앨범</a></li>
+        <li><a href="login.html" class="active">로그인</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="auth-section">
+  <div class="auth-card">
+    <div class="auth-mark">✝</div>
+    <h1>회원가입</h1>
+    <p class="auth-sub">가입 후 관리자 승인을 받으시면 이용하실 수 있습니다</p>
+
+    <form onsubmit="return false;">
+      <div class="field">
+        <label for="name">이름</label>
+        <input id="name" type="text" placeholder="성함을 입력하세요" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="email">이메일</label>
+        <input id="email" type="email" placeholder="example@email.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="pw">비밀번호</label>
+        <input id="pw" type="password" placeholder="6자 이상 입력" autocomplete="new-password">
+      </div>
+      <div class="field">
+        <label for="pw2">비밀번호 확인</label>
+        <input id="pw2" type="password" placeholder="비밀번호 다시 입력" autocomplete="new-password">
+      </div>
+      <button type="submit" class="btn-full btn-navy">가입하기</button>
+    </form>
+
+    <div class="auth-divider">또는</div>
+
+    <button type="button" class="btn-google">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      구글 계정으로 가입
+    </button>
+
+    <p class="auth-alt">이미 회원이신가요? <a href="login.html">로그인</a></p>
+
+    <div class="auth-note">
+      🔒 가입 신청 후 <strong>관리자(교회)의 승인</strong>이 완료되면 교인 전용 콘텐츠를 보실 수 있습니다.
+    </div>
+    <p class="auth-preview">※ 현재는 디자인 미리보기 화면입니다 (실제 가입은 준비중)</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>김천침례교회</h4>
+        <p>기독교 한국침례회<br>담임목사 정재윤</p>
+      </div>
+      <div>
+        <h4>오시는 길</h4>
+        <p>(39608) 경상북도 김천시 평화동 253<br>경북 김천시 평화12길 20</p>
+      </div>
+      <div>
+        <h4>연락처</h4>
+        <p>휴대전화 : 010-4402-2594</p>
+      </div>
+    </div>
+    <div class="copy">© 1951–2025 김천침례교회 (GIMCHEON BAPTIST CHURCH). All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
