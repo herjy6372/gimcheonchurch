@@ -31,16 +31,15 @@
   </div>
 </header>
 
-<section class="page-hero">
-  <div class="wrap">
-    <span class="eyebrow">Gallery</span>
-    <h1>교회 앨범</h1>
-    <div class="rule"></div>
-  </div>
+<h1 class="sr-only">교회 앨범 — 김천침례교회 사진展</h1>
+<section class="exhibit-hero">
+  <img src="images/exhibition-banner.jpg" alt="김천침례교회 사진展 — 빛과 시간의 기록: 김천의 발자취">
 </section>
 
 <section class="block">
   <div class="wrap">
+    <p class="exhibit-intro">세월 속에 담긴 김천침례교회의 순간들을 연도별 전시로 만나보세요.</p>
+
     <div class="year-tabs" id="yearTabs">
       <button class="active" data-year="all">전체</button>
       <button data-year="2025">2025</button>
@@ -51,18 +50,37 @@
 
     <!--
       사진 추가 방법:
-      아래 <div class="photo" ...> 안의 내용을 <img src="images/파일명.jpg" alt="설명"> 로 바꾸고,
-      data-year 값에 촬영 연도를 넣으면 위 연도 탭에서 자동으로 분류됩니다.
-      예) <div class="photo" data-year="2025"><img src="images/2025_elevator.jpg" alt="승강기 완공"></div>
+      아래 <figure class="frame" data-year="연도"> 안의 <div class="photo-slot">...</div> 를
+      <div class="photo-slot"><img src="images/파일명.jpg" alt="설명"></div> 로 바꾸고,
+      <figcaption>의 제목·연도를 수정하면 위 연도 탭에서 자동으로 분류됩니다.
+      예) <figure class="frame" data-year="2025">
+            <div class="mat"><div class="photo-slot"><img src="images/2025_elevator.jpg" alt="승강기 완공"></div></div>
+            <figcaption class="plaque"><strong>승강기 완공 감사예배</strong><span>2025</span></figcaption>
+          </figure>
     -->
-    <div class="album-grid" id="albumGrid">
-      <div class="photo" data-year="2025"><div><div class="ico">🖼️</div>2025 · 사진 준비중</div></div>
-      <div class="photo" data-year="2025"><div><div class="ico">🖼️</div>2025 · 사진 준비중</div></div>
-      <div class="photo" data-year="2021"><div><div class="ico">🖼️</div>2021 · 사진 준비중</div></div>
-      <div class="photo" data-year="2015"><div><div class="ico">🖼️</div>2015 · 사진 준비중</div></div>
-      <div class="photo" data-year="2013"><div><div class="ico">🖼️</div>2013 · 사진 준비중</div></div>
+    <div class="gallery-grid" id="albumGrid">
+      <figure class="frame" data-year="2025">
+        <div class="mat"><div class="photo-slot"><span class="slot-ico">🖼️</span>사진 준비중</div></div>
+        <figcaption class="plaque"><strong>제목 준비중</strong><span>2025</span></figcaption>
+      </figure>
+      <figure class="frame" data-year="2025">
+        <div class="mat"><div class="photo-slot"><span class="slot-ico">🖼️</span>사진 준비중</div></div>
+        <figcaption class="plaque"><strong>제목 준비중</strong><span>2025</span></figcaption>
+      </figure>
+      <figure class="frame" data-year="2021">
+        <div class="mat"><div class="photo-slot"><span class="slot-ico">🖼️</span>사진 준비중</div></div>
+        <figcaption class="plaque"><strong>제목 준비중</strong><span>2021</span></figcaption>
+      </figure>
+      <figure class="frame" data-year="2015">
+        <div class="mat"><div class="photo-slot"><span class="slot-ico">🖼️</span>사진 준비중</div></div>
+        <figcaption class="plaque"><strong>제목 준비중</strong><span>2015</span></figcaption>
+      </figure>
+      <figure class="frame" data-year="2013">
+        <div class="mat"><div class="photo-slot"><span class="slot-ico">🖼️</span>사진 준비중</div></div>
+        <figcaption class="plaque"><strong>제목 준비중</strong><span>2013</span></figcaption>
+      </figure>
     </div>
-    <p class="album-empty">연도별로 사진을 추가할 수 있도록 준비되어 있습니다. 사진 파일을 넣으면 연도 탭으로 나눠 보실 수 있습니다.</p>
+    <p class="album-empty">연도별로 사진을 추가할 수 있도록 준비되어 있습니다. 사진 파일을 넣으면 위 연도 탭으로 나눠 전시됩니다.</p>
   </div>
 </section>
 

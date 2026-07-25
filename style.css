@@ -181,14 +181,34 @@ section.block{padding:74px 0;}
   color:var(--navy);font-weight:700;font-size:14px;cursor:pointer;transition:.2s;
 }
 .year-tabs button.active,.year-tabs button:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
-.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;}
-.photo{
-  aspect-ratio:4/3;border-radius:12px;background:#f0ece2;border:1px dashed #d8cfbc;
-  display:grid;place-items:center;color:#b3a888;text-align:center;font-size:13px;overflow:hidden;
-}
-.photo img{width:100%;height:100%;object-fit:cover;}
-.photo .ico{font-size:34px;margin-bottom:6px;opacity:.6;}
 .album-empty{text-align:center;color:var(--muted);padding:30px;font-size:15px;}
+
+/* ===== Album — 사진展 (exhibition) ===== */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+.exhibit-hero{width:100%;background:#0f1f36;line-height:0;border-bottom:4px solid var(--gold);}
+.exhibit-hero img{width:100%;height:auto;display:block;max-height:72vh;object-fit:cover;}
+.exhibit-intro{text-align:center;color:var(--muted);font-size:16px;max-width:660px;margin:0 auto 36px;}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:34px 30px;}
+.frame{
+  background:linear-gradient(160deg,#ffffff,#fbf8f1);
+  padding:16px;border:1px solid #e2dbc9;border-radius:5px;
+  box-shadow:0 16px 34px rgba(31,58,95,.15);
+  transition:transform .22s, box-shadow .22s;
+}
+.frame:hover{transform:translateY(-6px);box-shadow:0 26px 50px rgba(31,58,95,.22);}
+.frame .mat{background:#fff;border:1px solid #ece7db;padding:10px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.02);}
+.photo-slot{
+  aspect-ratio:4/3;background:repeating-linear-gradient(45deg,#f3efe6,#f3efe6 10px,#efeade 10px,#efeade 20px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  color:#b3a888;text-align:center;font-size:13px;overflow:hidden;
+}
+.photo-slot img{width:100%;height:100%;object-fit:cover;}
+.photo-slot .slot-ico{font-size:32px;opacity:.55;}
+.plaque{margin-top:14px;text-align:center;}
+.plaque strong{display:block;color:var(--navy);font-size:15px;font-weight:700;line-height:1.4;}
+.plaque span{display:inline-block;margin-top:5px;font-size:12px;color:var(--gold);font-weight:700;letter-spacing:1.5px;}
+@media(max-width:600px){.gallery-grid{grid-template-columns:1fr;gap:26px;}}
 
 /* ===== Footer ===== */
 footer.site{background:#14233c;color:#c7d1e0;padding:48px 0 34px;}
