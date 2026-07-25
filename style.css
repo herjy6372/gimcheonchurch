@@ -186,7 +186,7 @@ section.block{padding:74px 0;}
 /* ===== Album — 사진展 (exhibition) ===== */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 .exhibit-hero{width:100%;background:#0f1f36;line-height:0;border-bottom:4px solid var(--gold);}
-.exhibit-hero img{width:100%;height:auto;display:block;max-height:72vh;object-fit:cover;}
+.exhibit-hero img{width:100%;height:auto;display:block;}
 .exhibit-intro{text-align:center;color:var(--muted);font-size:16px;max-width:660px;margin:0 auto 36px;}
 
 .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:34px 30px;}
@@ -209,6 +209,28 @@ section.block{padding:74px 0;}
 .plaque strong{display:block;color:var(--navy);font-size:15px;font-weight:700;line-height:1.4;}
 .plaque span{display:inline-block;margin-top:5px;font-size:12px;color:var(--gold);font-weight:700;letter-spacing:1.5px;}
 @media(max-width:600px){.gallery-grid{grid-template-columns:1fr;gap:26px;}}
+
+/* 연도별 전시 (실제 사진) */
+.year-block{margin-top:8px;}
+.year-block + .year-block{margin-top:20px;}
+.event{margin-bottom:48px;}
+.event:last-child{margin-bottom:0;}
+.event-title{
+  display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;
+  border-bottom:2px solid var(--line);padding-bottom:12px;margin-bottom:20px;
+}
+.event-title strong{font-size:21px;font-weight:800;color:var(--navy);letter-spacing:-.3px;}
+.event-title .date{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:1px;}
+.event-title .count{margin-left:auto;font-size:13px;color:var(--muted);font-weight:600;}
+.thumb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;}
+.thumb{
+  display:block;aspect-ratio:1/1;overflow:hidden;border-radius:8px;background:#ece7db;
+  border:1px solid var(--line);box-shadow:0 6px 16px rgba(31,58,95,.10);
+}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease;}
+.thumb:hover img{transform:scale(1.07);}
+.year-empty{text-align:center;color:var(--muted);padding:26px;font-size:15px;background:var(--white);border:1px dashed var(--line);border-radius:var(--radius);}
+@media(max-width:600px){.thumb-grid{grid-template-columns:repeat(2,1fr);gap:10px;}.event-title strong{font-size:18px;}}
 
 /* ===== Footer ===== */
 footer.site{background:#14233c;color:#c7d1e0;padding:48px 0 34px;}

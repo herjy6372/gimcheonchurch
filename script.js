@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded',function(){
         tabs.forEach(function(b){b.classList.remove('active');});
         tab.classList.add('active');
         var y=tab.dataset.year;
-        grid.querySelectorAll('.frame').forEach(function(p){
+        grid.querySelectorAll('.year-block').forEach(function(p){
           p.style.display=(y==='all'||p.dataset.year===y)?'':'none';
         });
       });

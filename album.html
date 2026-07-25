@@ -46,41 +46,259 @@
       <button data-year="2021">2021</button>
       <button data-year="2015">2015</button>
       <button data-year="2013">2013</button>
+      <button data-year="2011">2011</button>
     </div>
 
     <!--
       사진 추가 방법:
-      아래 <figure class="frame" data-year="연도"> 안의 <div class="photo-slot">...</div> 를
-      <div class="photo-slot"><img src="images/파일명.jpg" alt="설명"></div> 로 바꾸고,
-      <figcaption>의 제목·연도를 수정하면 위 연도 탭에서 자동으로 분류됩니다.
-      예) <figure class="frame" data-year="2025">
-            <div class="mat"><div class="photo-slot"><img src="images/2025_elevator.jpg" alt="승강기 완공"></div></div>
-            <figcaption class="plaque"><strong>승강기 완공 감사예배</strong><span>2025</span></figcaption>
-          </figure>
+      각 연도는 <section class="year-block" data-year="연도"> 로 묶입니다.
+      한 해 안에서 행사별로 <div class="event"> (제목/날짜/장수 + .thumb-grid) 를 두고,
+      .thumb-grid 안에 <a class="thumb" href="이미지경로" target="_blank"><img src="이미지경로" loading="lazy"></a> 를 넣습니다.
     -->
-    <div class="gallery-grid" id="albumGrid">
-      <figure class="frame" data-year="2025">
-        <div class="mat"><div class="photo-slot"><span class="slot-ico">🖼️</span>사진 준비중</div></div>
-        <figcaption class="plaque"><strong>제목 준비중</strong><span>2025</span></figcaption>
-      </figure>
-      <figure class="frame" data-year="2025">
-        <div class="mat"><div class="photo-slot"><span class="slot-ico">🖼️</span>사진 준비중</div></div>
-        <figcaption class="plaque"><strong>제목 준비중</strong><span>2025</span></figcaption>
-      </figure>
-      <figure class="frame" data-year="2021">
-        <div class="mat"><div class="photo-slot"><span class="slot-ico">🖼️</span>사진 준비중</div></div>
-        <figcaption class="plaque"><strong>제목 준비중</strong><span>2021</span></figcaption>
-      </figure>
-      <figure class="frame" data-year="2015">
-        <div class="mat"><div class="photo-slot"><span class="slot-ico">🖼️</span>사진 준비중</div></div>
-        <figcaption class="plaque"><strong>제목 준비중</strong><span>2015</span></figcaption>
-      </figure>
-      <figure class="frame" data-year="2013">
-        <div class="mat"><div class="photo-slot"><span class="slot-ico">🖼️</span>사진 준비중</div></div>
-        <figcaption class="plaque"><strong>제목 준비중</strong><span>2013</span></figcaption>
-      </figure>
+    <div id="albumGrid">
+      <section class="year-block" data-year="2025"><p class="year-empty">2025년 사진 준비중입니다.</p></section>
+      <section class="year-block" data-year="2021"><p class="year-empty">2021년 사진 준비중입니다.</p></section>
+      <section class="year-block" data-year="2015"><p class="year-empty">2015년 사진 준비중입니다.</p></section>
+      <section class="year-block" data-year="2013"><p class="year-empty">2013년 사진 준비중입니다.</p></section>
+      <section class="year-block" data-year="2011">
+        <div class="event">
+          <div class="event-title"><strong>찬양집회</strong><span class="date">2011. 5. 27.</span><span class="count">32장</span></div>
+          <div class="thumb-grid">
+          <a class="thumb" href="images/2011/praise/01.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/01.jpg" alt="찬양집회 01" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/02.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/02.jpg" alt="찬양집회 02" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/03.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/03.jpg" alt="찬양집회 03" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/04.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/04.jpg" alt="찬양집회 04" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/05.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/05.jpg" alt="찬양집회 05" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/06.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/06.jpg" alt="찬양집회 06" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/07.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/07.jpg" alt="찬양집회 07" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/08.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/08.jpg" alt="찬양집회 08" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/09.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/09.jpg" alt="찬양집회 09" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/10.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/10.jpg" alt="찬양집회 10" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/11.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/11.jpg" alt="찬양집회 11" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/12.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/12.jpg" alt="찬양집회 12" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/13.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/13.jpg" alt="찬양집회 13" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/14.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/14.jpg" alt="찬양집회 14" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/15.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/15.jpg" alt="찬양집회 15" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/16.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/16.jpg" alt="찬양집회 16" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/17.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/17.jpg" alt="찬양집회 17" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/18.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/18.jpg" alt="찬양집회 18" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/19.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/19.jpg" alt="찬양집회 19" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/20.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/20.jpg" alt="찬양집회 20" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/21.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/21.jpg" alt="찬양집회 21" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/22.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/22.jpg" alt="찬양집회 22" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/23.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/23.jpg" alt="찬양집회 23" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/24.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/24.jpg" alt="찬양집회 24" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/25.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/25.jpg" alt="찬양집회 25" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/26.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/26.jpg" alt="찬양집회 26" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/27.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/27.jpg" alt="찬양집회 27" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/28.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/28.jpg" alt="찬양집회 28" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/29.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/29.jpg" alt="찬양집회 29" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/30.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/30.jpg" alt="찬양집회 30" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/31.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/31.jpg" alt="찬양집회 31" loading="lazy"></a>
+          <a class="thumb" href="images/2011/praise/32.jpg" target="_blank" rel="noopener"><img src="images/2011/praise/32.jpg" alt="찬양집회 32" loading="lazy"></a>
+          </div>
+        </div>
+        <div class="event">
+          <div class="event-title"><strong>족구 친선경기</strong><span class="date">2011. 8. 14.</span><span class="count">55장</span></div>
+          <div class="thumb-grid">
+          <a class="thumb" href="images/2011/jokgu/01.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/01.jpg" alt="족구 친선경기 01" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/02.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/02.jpg" alt="족구 친선경기 02" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/03.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/03.jpg" alt="족구 친선경기 03" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/04.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/04.jpg" alt="족구 친선경기 04" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/05.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/05.jpg" alt="족구 친선경기 05" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/06.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/06.jpg" alt="족구 친선경기 06" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/07.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/07.jpg" alt="족구 친선경기 07" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/08.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/08.jpg" alt="족구 친선경기 08" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/09.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/09.jpg" alt="족구 친선경기 09" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/10.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/10.jpg" alt="족구 친선경기 10" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/11.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/11.jpg" alt="족구 친선경기 11" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/12.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/12.jpg" alt="족구 친선경기 12" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/13.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/13.jpg" alt="족구 친선경기 13" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/14.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/14.jpg" alt="족구 친선경기 14" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/15.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/15.jpg" alt="족구 친선경기 15" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/16.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/16.jpg" alt="족구 친선경기 16" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/17.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/17.jpg" alt="족구 친선경기 17" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/18.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/18.jpg" alt="족구 친선경기 18" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/19.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/19.jpg" alt="족구 친선경기 19" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/20.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/20.jpg" alt="족구 친선경기 20" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/21.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/21.jpg" alt="족구 친선경기 21" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/22.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/22.jpg" alt="족구 친선경기 22" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/23.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/23.jpg" alt="족구 친선경기 23" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/24.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/24.jpg" alt="족구 친선경기 24" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/25.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/25.jpg" alt="족구 친선경기 25" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/26.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/26.jpg" alt="족구 친선경기 26" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/27.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/27.jpg" alt="족구 친선경기 27" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/28.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/28.jpg" alt="족구 친선경기 28" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/29.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/29.jpg" alt="족구 친선경기 29" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/30.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/30.jpg" alt="족구 친선경기 30" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/31.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/31.jpg" alt="족구 친선경기 31" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/32.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/32.jpg" alt="족구 친선경기 32" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/33.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/33.jpg" alt="족구 친선경기 33" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/34.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/34.jpg" alt="족구 친선경기 34" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/35.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/35.jpg" alt="족구 친선경기 35" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/36.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/36.jpg" alt="족구 친선경기 36" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/37.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/37.jpg" alt="족구 친선경기 37" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/38.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/38.jpg" alt="족구 친선경기 38" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/39.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/39.jpg" alt="족구 친선경기 39" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/40.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/40.jpg" alt="족구 친선경기 40" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/41.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/41.jpg" alt="족구 친선경기 41" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/42.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/42.jpg" alt="족구 친선경기 42" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/43.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/43.jpg" alt="족구 친선경기 43" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/44.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/44.jpg" alt="족구 친선경기 44" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/45.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/45.jpg" alt="족구 친선경기 45" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/46.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/46.jpg" alt="족구 친선경기 46" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/47.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/47.jpg" alt="족구 친선경기 47" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/48.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/48.jpg" alt="족구 친선경기 48" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/49.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/49.jpg" alt="족구 친선경기 49" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/50.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/50.jpg" alt="족구 친선경기 50" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/51.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/51.jpg" alt="족구 친선경기 51" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/52.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/52.jpg" alt="족구 친선경기 52" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/53.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/53.jpg" alt="족구 친선경기 53" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/54.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/54.jpg" alt="족구 친선경기 54" loading="lazy"></a>
+          <a class="thumb" href="images/2011/jokgu/55.jpg" target="_blank" rel="noopener"><img src="images/2011/jokgu/55.jpg" alt="족구 친선경기 55" loading="lazy"></a>
+          </div>
+        </div>
+        <div class="event">
+          <div class="event-title"><strong>저녁 만찬</strong><span class="date">2011. 8. 14.</span><span class="count">11장</span></div>
+          <div class="thumb-grid">
+          <a class="thumb" href="images/2011/dinner/01.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/01.jpg" alt="저녁 만찬 01" loading="lazy"></a>
+          <a class="thumb" href="images/2011/dinner/02.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/02.jpg" alt="저녁 만찬 02" loading="lazy"></a>
+          <a class="thumb" href="images/2011/dinner/03.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/03.jpg" alt="저녁 만찬 03" loading="lazy"></a>
+          <a class="thumb" href="images/2011/dinner/04.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/04.jpg" alt="저녁 만찬 04" loading="lazy"></a>
+          <a class="thumb" href="images/2011/dinner/05.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/05.jpg" alt="저녁 만찬 05" loading="lazy"></a>
+          <a class="thumb" href="images/2011/dinner/06.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/06.jpg" alt="저녁 만찬 06" loading="lazy"></a>
+          <a class="thumb" href="images/2011/dinner/07.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/07.jpg" alt="저녁 만찬 07" loading="lazy"></a>
+          <a class="thumb" href="images/2011/dinner/08.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/08.jpg" alt="저녁 만찬 08" loading="lazy"></a>
+          <a class="thumb" href="images/2011/dinner/09.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/09.jpg" alt="저녁 만찬 09" loading="lazy"></a>
+          <a class="thumb" href="images/2011/dinner/10.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/10.jpg" alt="저녁 만찬 10" loading="lazy"></a>
+          <a class="thumb" href="images/2011/dinner/11.jpg" target="_blank" rel="noopener"><img src="images/2011/dinner/11.jpg" alt="저녁 만찬 11" loading="lazy"></a>
+          </div>
+        </div>
+        <div class="event">
+          <div class="event-title"><strong>친목의 밤</strong><span class="date">2011. 8. 14.</span><span class="count">65장</span></div>
+          <div class="thumb-grid">
+          <a class="thumb" href="images/2011/fellowship/01.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/01.jpg" alt="친목의 밤 01" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/02.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/02.jpg" alt="친목의 밤 02" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/03.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/03.jpg" alt="친목의 밤 03" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/04.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/04.jpg" alt="친목의 밤 04" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/05.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/05.jpg" alt="친목의 밤 05" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/06.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/06.jpg" alt="친목의 밤 06" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/07.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/07.jpg" alt="친목의 밤 07" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/08.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/08.jpg" alt="친목의 밤 08" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/09.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/09.jpg" alt="친목의 밤 09" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/10.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/10.jpg" alt="친목의 밤 10" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/11.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/11.jpg" alt="친목의 밤 11" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/12.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/12.jpg" alt="친목의 밤 12" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/13.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/13.jpg" alt="친목의 밤 13" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/14.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/14.jpg" alt="친목의 밤 14" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/15.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/15.jpg" alt="친목의 밤 15" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/16.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/16.jpg" alt="친목의 밤 16" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/17.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/17.jpg" alt="친목의 밤 17" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/18.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/18.jpg" alt="친목의 밤 18" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/19.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/19.jpg" alt="친목의 밤 19" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/20.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/20.jpg" alt="친목의 밤 20" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/21.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/21.jpg" alt="친목의 밤 21" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/22.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/22.jpg" alt="친목의 밤 22" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/23.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/23.jpg" alt="친목의 밤 23" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/24.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/24.jpg" alt="친목의 밤 24" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/25.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/25.jpg" alt="친목의 밤 25" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/26.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/26.jpg" alt="친목의 밤 26" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/27.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/27.jpg" alt="친목의 밤 27" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/28.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/28.jpg" alt="친목의 밤 28" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/29.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/29.jpg" alt="친목의 밤 29" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/30.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/30.jpg" alt="친목의 밤 30" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/31.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/31.jpg" alt="친목의 밤 31" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/32.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/32.jpg" alt="친목의 밤 32" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/33.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/33.jpg" alt="친목의 밤 33" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/34.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/34.jpg" alt="친목의 밤 34" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/35.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/35.jpg" alt="친목의 밤 35" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/36.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/36.jpg" alt="친목의 밤 36" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/37.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/37.jpg" alt="친목의 밤 37" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/38.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/38.jpg" alt="친목의 밤 38" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/39.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/39.jpg" alt="친목의 밤 39" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/40.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/40.jpg" alt="친목의 밤 40" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/41.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/41.jpg" alt="친목의 밤 41" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/42.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/42.jpg" alt="친목의 밤 42" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/43.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/43.jpg" alt="친목의 밤 43" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/44.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/44.jpg" alt="친목의 밤 44" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/45.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/45.jpg" alt="친목의 밤 45" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/46.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/46.jpg" alt="친목의 밤 46" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/47.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/47.jpg" alt="친목의 밤 47" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/48.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/48.jpg" alt="친목의 밤 48" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/49.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/49.jpg" alt="친목의 밤 49" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/50.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/50.jpg" alt="친목의 밤 50" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/51.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/51.jpg" alt="친목의 밤 51" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/52.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/52.jpg" alt="친목의 밤 52" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/53.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/53.jpg" alt="친목의 밤 53" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/54.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/54.jpg" alt="친목의 밤 54" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/55.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/55.jpg" alt="친목의 밤 55" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/56.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/56.jpg" alt="친목의 밤 56" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/57.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/57.jpg" alt="친목의 밤 57" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/58.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/58.jpg" alt="친목의 밤 58" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/59.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/59.jpg" alt="친목의 밤 59" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/60.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/60.jpg" alt="친목의 밤 60" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/61.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/61.jpg" alt="친목의 밤 61" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/62.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/62.jpg" alt="친목의 밤 62" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/63.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/63.jpg" alt="친목의 밤 63" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/64.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/64.jpg" alt="친목의 밤 64" loading="lazy"></a>
+          <a class="thumb" href="images/2011/fellowship/65.jpg" target="_blank" rel="noopener"><img src="images/2011/fellowship/65.jpg" alt="친목의 밤 65" loading="lazy"></a>
+          </div>
+        </div>
+        <div class="event">
+          <div class="event-title"><strong>침례식</strong><span class="date">2011. 8. 15.</span><span class="count">28장</span></div>
+          <div class="thumb-grid">
+          <a class="thumb" href="images/2011/baptism/01.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/01.jpg" alt="침례식 01" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/02.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/02.jpg" alt="침례식 02" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/03.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/03.jpg" alt="침례식 03" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/04.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/04.jpg" alt="침례식 04" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/05.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/05.jpg" alt="침례식 05" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/06.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/06.jpg" alt="침례식 06" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/07.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/07.jpg" alt="침례식 07" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/08.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/08.jpg" alt="침례식 08" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/09.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/09.jpg" alt="침례식 09" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/10.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/10.jpg" alt="침례식 10" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/11.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/11.jpg" alt="침례식 11" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/12.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/12.jpg" alt="침례식 12" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/13.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/13.jpg" alt="침례식 13" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/14.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/14.jpg" alt="침례식 14" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/15.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/15.jpg" alt="침례식 15" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/16.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/16.jpg" alt="침례식 16" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/17.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/17.jpg" alt="침례식 17" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/18.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/18.jpg" alt="침례식 18" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/19.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/19.jpg" alt="침례식 19" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/20.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/20.jpg" alt="침례식 20" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/21.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/21.jpg" alt="침례식 21" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/22.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/22.jpg" alt="침례식 22" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/23.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/23.jpg" alt="침례식 23" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/24.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/24.jpg" alt="침례식 24" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/25.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/25.jpg" alt="침례식 25" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/26.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/26.jpg" alt="침례식 26" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/27.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/27.jpg" alt="침례식 27" loading="lazy"></a>
+          <a class="thumb" href="images/2011/baptism/28.jpg" target="_blank" rel="noopener"><img src="images/2011/baptism/28.jpg" alt="침례식 28" loading="lazy"></a>
+          </div>
+        </div>
+        <div class="event">
+          <div class="event-title"><strong>레일바이크</strong><span class="date">2011. 8. 15.</span><span class="count">14장</span></div>
+          <div class="thumb-grid">
+          <a class="thumb" href="images/2011/railbike/01.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/01.jpg" alt="레일바이크 01" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/02.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/02.jpg" alt="레일바이크 02" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/03.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/03.jpg" alt="레일바이크 03" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/04.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/04.jpg" alt="레일바이크 04" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/05.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/05.jpg" alt="레일바이크 05" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/06.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/06.jpg" alt="레일바이크 06" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/07.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/07.jpg" alt="레일바이크 07" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/08.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/08.jpg" alt="레일바이크 08" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/09.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/09.jpg" alt="레일바이크 09" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/10.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/10.jpg" alt="레일바이크 10" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/11.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/11.jpg" alt="레일바이크 11" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/12.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/12.jpg" alt="레일바이크 12" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/13.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/13.jpg" alt="레일바이크 13" loading="lazy"></a>
+          <a class="thumb" href="images/2011/railbike/14.jpg" target="_blank" rel="noopener"><img src="images/2011/railbike/14.jpg" alt="레일바이크 14" loading="lazy"></a>
+          </div>
+        </div>
+      </section>
+
     </div>
-    <p class="album-empty">연도별로 사진을 추가할 수 있도록 준비되어 있습니다. 사진 파일을 넣으면 위 연도 탭으로 나눠 전시됩니다.</p>
   </div>
 </section>
 
