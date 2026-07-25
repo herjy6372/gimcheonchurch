@@ -234,7 +234,12 @@ section.block{padding:74px 0;}
 
 /* 행사 접기/펼치기 */
 .event-title{cursor:pointer;user-select:none;}
-.event-title::after{content:"▾";margin-left:16px;color:var(--gold);font-size:13px;transition:transform .25s;}
+.event-title::after{
+  content:"▾";margin-left:16px;flex:0 0 34px;width:34px;height:34px;
+  display:grid;place-items:center;background:var(--navy);color:#fff;border-radius:50%;
+  font-size:18px;line-height:1;transition:transform .25s, background .2s;box-shadow:0 4px 10px rgba(31,58,95,.25);
+}
+.event-title:hover::after{background:var(--gold);}
 .event.collapsed .event-title::after{transform:rotate(-90deg);}
 .event.collapsed .event-title{border-bottom-color:transparent;margin-bottom:0;}
 .event .thumb-grid{overflow:hidden;}
