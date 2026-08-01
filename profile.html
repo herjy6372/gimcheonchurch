@@ -81,6 +81,11 @@
       </form>
 
       <p class="auth-alt"><a href="member.html">← 전용공간으로 돌아가기</a></p>
+
+      <div style="margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-align:center;">
+        <button type="button" id="withdrawBtn" class="btn-outline" style="color:#a3452f;border-color:#e3c9c0;">회원 탈퇴</button>
+        <p style="font-size:12px;color:#999;margin-top:8px;">탈퇴하면 가입 정보가 모두 삭제되며 되돌릴 수 없습니다.</p>
+      </div>
     </div>
 
   </div>
@@ -110,7 +115,7 @@
 <script type="module" src="auth-nav.js"></script>
 <script type="module">
   import { auth, db } from "./firebase-init.js";
-  import { onAuthStateChanged, updateProfile }
+  import { onAuthStateChanged, updateProfile, deleteUser }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
   import { doc, getDoc, updateDoc, setDoc, deleteDoc, serverTimestamp }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -174,6 +179,27 @@
       show("저장되었습니다.", true);
     }catch(err){
       show("저장 중 오류가 발생했습니다. ("+(err.code||err.message)+")", false);
+    }
+  });
+
+  $("withdrawBtn").addEventListener("click", async ()=>{
+    if(!confirm("정말 탈퇴하시겠습니까?\n가입 정보가 모두 삭제되며 되돌릴 수 없습니다.")) return;
+    $("withdrawBtn").disabled = true;
+    try{
+      if(currentData.phone){
+        try{ await deleteDoc(doc(db,"phoneNumbers",currentData.phone)); }catch(e){ /* 무시 */ }
+      }
+      await deleteDoc(doc(db,"users",currentUser.uid));
+      await deleteUser(currentUser);
+      alert("탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.");
+      location.href = "index.html";
+    }catch(err){
+      $("withdrawBtn").disabled = false;
+      if(err.code === "auth/requires-recent-login"){
+        show("보안을 위해 재로그인이 필요합니다. 로그아웃 후 다시 로그인한 뒤 곧바로 탈퇴를 진행해 주세요.", false);
+      }else{
+        show("탈퇴 중 오류가 발생했습니다. ("+(err.code||err.message)+")", false);
+      }
     }
   });
 </script>
