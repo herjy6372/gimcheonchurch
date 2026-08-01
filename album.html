@@ -32,6 +32,39 @@
   </div>
 </header>
 
+<!-- 로딩 -->
+<section class="block" id="albumLoading">
+  <div class="wrap" style="max-width:820px;">
+    <div class="member-state">불러오는 중…</div>
+  </div>
+</section>
+
+<!-- 비로그인 안내 -->
+<section class="block" id="albumLoginNeeded" style="display:none;">
+  <div class="wrap" style="max-width:820px;">
+    <div class="member-state">
+      <div class="state-ico">🔒</div>
+      <h2>교인 전용 앨범입니다</h2>
+      <p>앨범은 로그인한 교인만 열람하실 수 있습니다.<br>로그인 또는 회원가입 후 이용해 주세요.</p>
+      <a href="login.html" class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;display:block;text-decoration:none;">로그인 하러 가기</a>
+    </div>
+  </div>
+</section>
+
+<!-- 승인 대기 -->
+<section class="block" id="albumPending" style="display:none;">
+  <div class="wrap" style="max-width:820px;">
+    <div class="member-state">
+      <div class="state-ico">⏳</div>
+      <h2>승인 대기 중입니다</h2>
+      <p>가입해 주셔서 감사합니다.<br>관리자(교회)의 승인이 완료되면 앨범을 보실 수 있습니다.</p>
+      <button class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;" id="albumLogoutBtn">로그아웃</button>
+    </div>
+  </div>
+</section>
+
+<div id="albumContent" style="display:none;">
+
 <h1 class="sr-only">교회 앨범 — 김천침례교회 사진展</h1>
 <section class="exhibit-hero">
   <img src="images/exhibition-banner.jpg" alt="김천침례교회 사진展 — 빛과 시간의 기록: 김천의 발자취">
@@ -1499,9 +1532,9 @@
         <div class="event">
           <div class="event-title"><strong>남전도회 야유회</strong><span class="date">2017. 1. 14.</span><span class="count">3장</span></div>
           <div class="thumb-grid">
-          <a class="thumb" href="2017/mens-outing/01.jpg" target="_blank" rel="noopener"><img src="2017/mens-outing/01.jpg" alt="남전도회 야유회" loading="lazy"></a>
-          <a class="thumb" href="2017/mens-outing/02.jpg" target="_blank" rel="noopener"><img src="2017/mens-outing/02.jpg" alt="남전도회 야유회" loading="lazy"></a>
-          <a class="thumb" href="2017/mens-outing/03.jpg" target="_blank" rel="noopener"><img src="2017/mens-outing/03.jpg" alt="남전도회 야유회" loading="lazy"></a>
+          <a class="thumb" href="images/2017/mens-outing/01.jpg" target="_blank" rel="noopener"><img src="images/2017/mens-outing/01.jpg" alt="남전도회 야유회" loading="lazy"></a>
+          <a class="thumb" href="images/2017/mens-outing/02.jpg" target="_blank" rel="noopener"><img src="images/2017/mens-outing/02.jpg" alt="남전도회 야유회" loading="lazy"></a>
+          <a class="thumb" href="images/2017/mens-outing/03.jpg" target="_blank" rel="noopener"><img src="images/2017/mens-outing/03.jpg" alt="남전도회 야유회" loading="lazy"></a>
           </div>
         </div>
       </section>
@@ -1650,9 +1683,9 @@
         <div class="event">
           <div class="event-title"><strong>야유회</strong><span class="date">2022. 10. 23.</span><span class="count">3장</span></div>
           <div class="thumb-grid">
-          <a class="thumb" href="2022/outing/01.jpg" target="_blank" rel="noopener"><img src="2022/outing/01.jpg" alt="야유회" loading="lazy"></a>
-          <a class="thumb" href="2022/outing/02.jpg" target="_blank" rel="noopener"><img src="2022/outing/02.jpg" alt="야유회" loading="lazy"></a>
-          <a class="thumb" href="2022/outing/03.jpg" target="_blank" rel="noopener"><img src="2022/outing/03.jpg" alt="야유회" loading="lazy"></a>
+          <a class="thumb" href="images/2022/outing/01.jpg" target="_blank" rel="noopener"><img src="images/2022/outing/01.jpg" alt="야유회" loading="lazy"></a>
+          <a class="thumb" href="images/2022/outing/02.jpg" target="_blank" rel="noopener"><img src="images/2022/outing/02.jpg" alt="야유회" loading="lazy"></a>
+          <a class="thumb" href="images/2022/outing/03.jpg" target="_blank" rel="noopener"><img src="images/2022/outing/03.jpg" alt="야유회" loading="lazy"></a>
           </div>
         </div>
       </section>
@@ -1660,11 +1693,11 @@
         <div class="event">
           <div class="event-title"><strong>가을 야유회 (홍천·칠갑산)</strong><span class="date">2024. 10. 26.</span><span class="count">5장</span></div>
           <div class="thumb-grid">
-          <a class="thumb" href="2024/autumn-hongcheon/01.jpg" target="_blank" rel="noopener"><img src="2024/autumn-hongcheon/01.jpg" alt="가을 야유회 (홍천·칠갑산)" loading="lazy"></a>
-          <a class="thumb" href="2024/autumn-hongcheon/02.jpg" target="_blank" rel="noopener"><img src="2024/autumn-hongcheon/02.jpg" alt="가을 야유회 (홍천·칠갑산)" loading="lazy"></a>
-          <a class="thumb" href="2024/autumn-hongcheon/03.jpg" target="_blank" rel="noopener"><img src="2024/autumn-hongcheon/03.jpg" alt="가을 야유회 (홍천·칠갑산)" loading="lazy"></a>
-          <a class="thumb" href="2024/autumn-hongcheon/04.jpg" target="_blank" rel="noopener"><img src="2024/autumn-hongcheon/04.jpg" alt="가을 야유회 (홍천·칠갑산)" loading="lazy"></a>
-          <a class="thumb" href="2024/autumn-hongcheon/05.jpg" target="_blank" rel="noopener"><img src="2024/autumn-hongcheon/05.jpg" alt="가을 야유회 (홍천·칠갑산)" loading="lazy"></a>
+          <a class="thumb" href="images/2024/autumn-hongcheon/01.jpg" target="_blank" rel="noopener"><img src="images/2024/autumn-hongcheon/01.jpg" alt="가을 야유회 (홍천·칠갑산)" loading="lazy"></a>
+          <a class="thumb" href="images/2024/autumn-hongcheon/02.jpg" target="_blank" rel="noopener"><img src="images/2024/autumn-hongcheon/02.jpg" alt="가을 야유회 (홍천·칠갑산)" loading="lazy"></a>
+          <a class="thumb" href="images/2024/autumn-hongcheon/03.jpg" target="_blank" rel="noopener"><img src="images/2024/autumn-hongcheon/03.jpg" alt="가을 야유회 (홍천·칠갑산)" loading="lazy"></a>
+          <a class="thumb" href="images/2024/autumn-hongcheon/04.jpg" target="_blank" rel="noopener"><img src="images/2024/autumn-hongcheon/04.jpg" alt="가을 야유회 (홍천·칠갑산)" loading="lazy"></a>
+          <a class="thumb" href="images/2024/autumn-hongcheon/05.jpg" target="_blank" rel="noopener"><img src="images/2024/autumn-hongcheon/05.jpg" alt="가을 야유회 (홍천·칠갑산)" loading="lazy"></a>
           </div>
         </div>
       </section>
@@ -1672,21 +1705,21 @@
         <div class="event">
           <div class="event-title"><strong>창립 74주년·승강기 완공 감사예배</strong><span class="date">2025. 8. 24.</span><span class="count">3장</span></div>
           <div class="thumb-grid">
-          <a class="thumb" href="2025/anniv74/01.jpg" target="_blank" rel="noopener"><img src="2025/anniv74/01.jpg" alt="창립 74주년·승강기 완공 감사예배" loading="lazy"></a>
-          <a class="thumb" href="2025/anniv74/02.jpg" target="_blank" rel="noopener"><img src="2025/anniv74/02.jpg" alt="창립 74주년·승강기 완공 감사예배" loading="lazy"></a>
-          <a class="thumb" href="2025/anniv74/03.jpg" target="_blank" rel="noopener"><img src="2025/anniv74/03.jpg" alt="창립 74주년·승강기 완공 감사예배" loading="lazy"></a>
+          <a class="thumb" href="images/2025/anniv74/01.jpg" target="_blank" rel="noopener"><img src="images/2025/anniv74/01.jpg" alt="창립 74주년·승강기 완공 감사예배" loading="lazy"></a>
+          <a class="thumb" href="images/2025/anniv74/02.jpg" target="_blank" rel="noopener"><img src="images/2025/anniv74/02.jpg" alt="창립 74주년·승강기 완공 감사예배" loading="lazy"></a>
+          <a class="thumb" href="images/2025/anniv74/03.jpg" target="_blank" rel="noopener"><img src="images/2025/anniv74/03.jpg" alt="창립 74주년·승강기 완공 감사예배" loading="lazy"></a>
           </div>
         </div>
         <div class="event">
           <div class="event-title"><strong>추수감사예배</strong><span class="date">2025. 11. 2.</span><span class="count">7장</span></div>
           <div class="thumb-grid">
-          <a class="thumb" href="2025/thanksgiving-service/01.jpg" target="_blank" rel="noopener"><img src="2025/thanksgiving-service/01.jpg" alt="추수감사예배" loading="lazy"></a>
-          <a class="thumb" href="2025/thanksgiving-service/02.jpg" target="_blank" rel="noopener"><img src="2025/thanksgiving-service/02.jpg" alt="추수감사예배" loading="lazy"></a>
-          <a class="thumb" href="2025/thanksgiving-service/03.jpg" target="_blank" rel="noopener"><img src="2025/thanksgiving-service/03.jpg" alt="추수감사예배" loading="lazy"></a>
-          <a class="thumb" href="2025/thanksgiving-service/04.jpg" target="_blank" rel="noopener"><img src="2025/thanksgiving-service/04.jpg" alt="추수감사예배" loading="lazy"></a>
-          <a class="thumb" href="2025/thanksgiving-service/05.jpg" target="_blank" rel="noopener"><img src="2025/thanksgiving-service/05.jpg" alt="추수감사예배" loading="lazy"></a>
-          <a class="thumb" href="2025/thanksgiving-service/06.jpg" target="_blank" rel="noopener"><img src="2025/thanksgiving-service/06.jpg" alt="추수감사예배" loading="lazy"></a>
-          <a class="thumb" href="2025/thanksgiving-service/07.jpg" target="_blank" rel="noopener"><img src="2025/thanksgiving-service/07.jpg" alt="추수감사예배" loading="lazy"></a>
+          <a class="thumb" href="images/2025/thanksgiving-service/01.jpg" target="_blank" rel="noopener"><img src="images/2025/thanksgiving-service/01.jpg" alt="추수감사예배" loading="lazy"></a>
+          <a class="thumb" href="images/2025/thanksgiving-service/02.jpg" target="_blank" rel="noopener"><img src="images/2025/thanksgiving-service/02.jpg" alt="추수감사예배" loading="lazy"></a>
+          <a class="thumb" href="images/2025/thanksgiving-service/03.jpg" target="_blank" rel="noopener"><img src="images/2025/thanksgiving-service/03.jpg" alt="추수감사예배" loading="lazy"></a>
+          <a class="thumb" href="images/2025/thanksgiving-service/04.jpg" target="_blank" rel="noopener"><img src="images/2025/thanksgiving-service/04.jpg" alt="추수감사예배" loading="lazy"></a>
+          <a class="thumb" href="images/2025/thanksgiving-service/05.jpg" target="_blank" rel="noopener"><img src="images/2025/thanksgiving-service/05.jpg" alt="추수감사예배" loading="lazy"></a>
+          <a class="thumb" href="images/2025/thanksgiving-service/06.jpg" target="_blank" rel="noopener"><img src="images/2025/thanksgiving-service/06.jpg" alt="추수감사예배" loading="lazy"></a>
+          <a class="thumb" href="images/2025/thanksgiving-service/07.jpg" target="_blank" rel="noopener"><img src="images/2025/thanksgiving-service/07.jpg" alt="추수감사예배" loading="lazy"></a>
           </div>
         </div>
       </section>
@@ -1694,25 +1727,27 @@
         <div class="event">
           <div class="event-title"><strong>김천침례교회 사진</strong><span class="count">13장</span></div>
           <div class="thumb-grid">
-          <a class="thumb" href="etc/general/01.jpg" target="_blank" rel="noopener"><img src="etc/general/01.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/02.jpg" target="_blank" rel="noopener"><img src="etc/general/02.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/03.jpg" target="_blank" rel="noopener"><img src="etc/general/03.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/04.jpg" target="_blank" rel="noopener"><img src="etc/general/04.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/05.jpg" target="_blank" rel="noopener"><img src="etc/general/05.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/06.jpg" target="_blank" rel="noopener"><img src="etc/general/06.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/07.jpg" target="_blank" rel="noopener"><img src="etc/general/07.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/08.jpg" target="_blank" rel="noopener"><img src="etc/general/08.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/09.jpg" target="_blank" rel="noopener"><img src="etc/general/09.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/10.jpg" target="_blank" rel="noopener"><img src="etc/general/10.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/11.jpg" target="_blank" rel="noopener"><img src="etc/general/11.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/12.jpg" target="_blank" rel="noopener"><img src="etc/general/12.jpg" alt="김천침례교회 사진" loading="lazy"></a>
-          <a class="thumb" href="etc/general/13.jpg" target="_blank" rel="noopener"><img src="etc/general/13.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/01.jpg" target="_blank" rel="noopener"><img src="images/etc/general/01.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/02.jpg" target="_blank" rel="noopener"><img src="images/etc/general/02.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/03.jpg" target="_blank" rel="noopener"><img src="images/etc/general/03.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/04.jpg" target="_blank" rel="noopener"><img src="images/etc/general/04.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/05.jpg" target="_blank" rel="noopener"><img src="images/etc/general/05.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/06.jpg" target="_blank" rel="noopener"><img src="images/etc/general/06.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/07.jpg" target="_blank" rel="noopener"><img src="images/etc/general/07.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/08.jpg" target="_blank" rel="noopener"><img src="images/etc/general/08.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/09.jpg" target="_blank" rel="noopener"><img src="images/etc/general/09.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/10.jpg" target="_blank" rel="noopener"><img src="images/etc/general/10.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/11.jpg" target="_blank" rel="noopener"><img src="images/etc/general/11.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/12.jpg" target="_blank" rel="noopener"><img src="images/etc/general/12.jpg" alt="김천침례교회 사진" loading="lazy"></a>
+          <a class="thumb" href="images/etc/general/13.jpg" target="_blank" rel="noopener"><img src="images/etc/general/13.jpg" alt="김천침례교회 사진" loading="lazy"></a>
           </div>
         </div>
       </section>
     </div>
   </div>
 </section>
+
+</div>
 
 <footer class="site">
   <div class="wrap">
@@ -1736,5 +1771,29 @@
 
 <script src="script.js"></script>
 <script type="module" src="auth-nav.js"></script>
+<script type="module">
+  import { auth, db } from "./firebase-init.js";
+  import { onAuthStateChanged, signOut }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { doc, getDoc }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const $ = (id)=>document.getElementById(id);
+  $("albumLogoutBtn").addEventListener("click", ()=>{
+    signOut(auth).then(()=>location.href="index.html");
+  });
+
+  onAuthStateChanged(auth, async (user)=>{
+    $("albumLoading").style.display="none";
+    if(!user){ $("albumLoginNeeded").style.display=""; return; }
+    const snap = await getDoc(doc(db,"users",user.uid));
+    const data = snap.exists()? snap.data() : {approved:false, admin:false};
+    if(data.approved){
+      $("albumContent").style.display="";
+    }else{
+      $("albumPending").style.display="";
+    }
+  });
+</script>
 </body>
 </html>
