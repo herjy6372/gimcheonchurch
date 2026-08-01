@@ -134,6 +134,13 @@
     panel.className="admin-item";
     panel.style.cssText="display:none;flex-direction:column;align-items:stretch;gap:10px;background:#faf7f0;";
 
+    function field(labelText, el){
+      const wrap=document.createElement("div"); wrap.className="field"; wrap.style.marginBottom="0";
+      const label=document.createElement("label"); label.textContent=labelText;
+      wrap.appendChild(label); wrap.appendChild(el);
+      return wrap;
+    }
+
     const nameInput=document.createElement("input"); nameInput.type="text"; nameInput.value=u.name||""; nameInput.placeholder="이름";
     const birthRow=document.createElement("div"); birthRow.className="birth-row";
     const yearSel=document.createElement("select"), monthSel=document.createElement("select"), daySel=document.createElement("select");
@@ -150,7 +157,8 @@
     const cancelBtn=document.createElement("button"); cancelBtn.className="btn-mini reject"; cancelBtn.textContent="취소";
     btnRow.appendChild(saveBtn); btnRow.appendChild(cancelBtn);
 
-    [nameInput, birthRow, genderSel, phoneInput, errMsg, btnRow].forEach(el=>panel.appendChild(el));
+    [field("이름", nameInput), field("생년월일", birthRow), field("성별", genderSel), field("휴대폰 번호", phoneInput), errMsg, btnRow]
+      .forEach(el=>panel.appendChild(el));
 
     cancelBtn.onclick=()=>{ panel.style.display="none"; };
     saveBtn.onclick=async()=>{
