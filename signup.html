@@ -138,8 +138,8 @@
     const snap = await getDoc(doc(db,"phoneNumbers",phone));
     return snap.exists();
   }
-  async function claimPhone(phone){
-    await setDoc(doc(db,"phoneNumbers",phone), { createdAt: serverTimestamp() });
+  async function claimPhone(phone, uid){
+    await setDoc(doc(db,"phoneNumbers",phone), { uid, createdAt: serverTimestamp() });
   }
 
   function readExtraFields(){
@@ -167,7 +167,7 @@
     const snap = await getDoc(ref);
     if(snap.exists()) return;
     try{
-      await claimPhone(extra.phone);
+      await claimPhone(extra.phone, user.uid);
     }catch(e){
       await user.delete();
       throw new Error("PHONE_TAKEN");
