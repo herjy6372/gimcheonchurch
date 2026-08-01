@@ -42,8 +42,8 @@
 
     <form id="loginForm">
       <div class="field">
-        <label for="email">이메일</label>
-        <input id="email" type="email" placeholder="example@email.com" autocomplete="email" required>
+        <label for="email">아이디 또는 이메일</label>
+        <input id="email" type="text" placeholder="아이디(영문·숫자) 또는 example@email.com" autocomplete="username" required>
       </div>
       <div class="field">
         <div class="lbl-row">
@@ -102,12 +102,16 @@
   const msg = document.getElementById("msg");
   function show(text, ok){ msg.textContent=text; msg.className="auth-msg "+(ok?"ok":"err"); msg.style.display="block"; }
 
+  // 아이디(도메인 없는 계정) 지원: 내부적으로만 가짜 이메일로 변환해 Firebase 이메일/비밀번호 로그인을 재사용
+  const ID_DOMAIN = "@id.gimcheonchurch.kr";
+  function toAuthEmail(input){ return input.includes("@") ? input : input + ID_DOMAIN; }
+
   function errText(code){
     switch(code){
       case "auth/invalid-credential":
       case "auth/wrong-password":
-      case "auth/user-not-found": return "이메일 또는 비밀번호가 올바르지 않습니다.";
-      case "auth/invalid-email": return "이메일 형식이 올바르지 않습니다.";
+      case "auth/user-not-found": return "아이디(이메일) 또는 비밀번호가 올바르지 않습니다.";
+      case "auth/invalid-email": return "아이디 또는 이메일 형식이 올바르지 않습니다.";
       case "auth/too-many-requests": return "시도가 많습니다. 잠시 후 다시 시도해 주세요.";
       default: return "로그인 중 오류가 발생했습니다. ("+code+")";
     }
@@ -126,10 +130,10 @@
 
   document.getElementById("loginForm").addEventListener("submit", async (e)=>{
     e.preventDefault();
-    const email=document.getElementById("email").value.trim();
+    const raw=document.getElementById("email").value.trim();
     const pw=document.getElementById("pw").value;
     try{
-      const cred = await signInWithEmailAndPassword(auth, email, pw);
+      const cred = await signInWithEmailAndPassword(auth, toAuthEmail(raw), pw);
       await afterLogin(cred.user);
     }catch(err){ show(errText(err.code), false); }
   });
@@ -143,9 +147,10 @@
 
   document.getElementById("resetLink").addEventListener("click", async (e)=>{
     e.preventDefault();
-    const email=document.getElementById("email").value.trim();
-    if(!email){ show("비밀번호를 재설정할 이메일을 입력한 뒤 눌러주세요.", false); return; }
-    try{ await sendPasswordResetEmail(auth,email); show("비밀번호 재설정 메일을 보냈습니다. 메일함을 확인해 주세요.", true); }
+    const raw=document.getElementById("email").value.trim();
+    if(!raw){ show("비밀번호를 재설정할 아이디 또는 이메일을 입력한 뒤 눌러주세요.", false); return; }
+    if(!raw.includes("@")){ show("아이디 계정은 비밀번호 찾기가 지원되지 않습니다. 관리자에게 문의해 주세요.", false); return; }
+    try{ await sendPasswordResetEmail(auth,raw); show("비밀번호 재설정 메일을 보냈습니다. 메일함을 확인해 주세요.", true); }
     catch(err){ show(errText(err.code), false); }
   });
 </script>
