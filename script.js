@@ -2,6 +2,42 @@
 function toggleMenu(){var m=document.getElementById('menu');if(m)m.classList.toggle('open');}
 function closeMenu(){var m=document.getElementById('menu');if(m)m.classList.remove('open');}
 
+// 생년월일 선택 UI: 년/월/일 드롭다운 채우기 (회원가입·정보수정에서 공용으로 사용)
+function fillBirthSelects(yearEl, monthEl, dayEl, isoDate){
+  var nowYear = new Date().getFullYear();
+  var yOpts = '<option value="" disabled selected>년</option>';
+  for(var y=nowYear; y>=nowYear-99; y--){ yOpts += '<option value="'+y+'">'+y+'년</option>'; }
+  yearEl.innerHTML = yOpts;
+  var mOpts = '<option value="" disabled selected>월</option>';
+  for(var m=1; m<=12; m++){ mOpts += '<option value="'+m+'">'+m+'월</option>'; }
+  monthEl.innerHTML = mOpts;
+  function fillDays(){
+    var yy = Number(yearEl.value) || nowYear;
+    var mm = Number(monthEl.value) || 1;
+    var daysInMonth = new Date(yy, mm, 0).getDate();
+    var keep = dayEl.value;
+    var dOpts = '<option value="" disabled selected>일</option>';
+    for(var d=1; d<=daysInMonth; d++){ dOpts += '<option value="'+d+'">'+d+'일</option>'; }
+    dayEl.innerHTML = dOpts;
+    if(keep && Number(keep)<=daysInMonth) dayEl.value = keep;
+  }
+  yearEl.addEventListener('change', fillDays);
+  monthEl.addEventListener('change', fillDays);
+  fillDays();
+  if(isoDate){
+    var parts = isoDate.split('-');
+    if(parts[0]) yearEl.value = String(Number(parts[0]));
+    if(parts[1]) monthEl.value = String(Number(parts[1]));
+    fillDays();
+    if(parts[2]) dayEl.value = String(Number(parts[2]));
+  }
+}
+function readBirthValue(yearEl, monthEl, dayEl){
+  var y=yearEl.value, m=monthEl.value, d=dayEl.value;
+  if(!y||!m||!d) return "";
+  return y+"-"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0");
+}
+
 document.addEventListener('DOMContentLoaded',function(){
 
   // 메뉴 링크 클릭 또는 바깥 영역 클릭 시 모바일 메뉴 닫기

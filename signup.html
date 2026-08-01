@@ -46,8 +46,12 @@
         <input id="name" type="text" placeholder="성함을 입력하세요" autocomplete="name" required>
       </div>
       <div class="field">
-        <label for="birth">생년월일</label>
-        <input id="birth" type="date" required>
+        <label>생년월일</label>
+        <div class="birth-row">
+          <select id="birthYear" required></select>
+          <select id="birthMonth" required></select>
+          <select id="birthDay" required></select>
+        </div>
       </div>
       <div class="field">
         <label for="gender">성별</label>
@@ -125,6 +129,7 @@
   function show(text, ok){ msg.textContent=text; msg.className="auth-msg "+(ok?"ok":"err"); msg.style.display="block"; msg.scrollIntoView({block:"nearest"}); }
 
   const $ = (id)=>document.getElementById(id);
+  fillBirthSelects($("birthYear"), $("birthMonth"), $("birthDay"));
 
   // 아이디(도메인 없는 계정) 지원: 내부적으로만 가짜 이메일로 변환해 Firebase 이메일/비밀번호 로그인을 재사용
   const ID_DOMAIN = "@id.gimcheonchurch.kr";
@@ -143,10 +148,10 @@
   }
 
   function readExtraFields(){
-    const birth=$("birth").value;
+    const birth=readBirthValue($("birthYear"), $("birthMonth"), $("birthDay"));
     const gender=$("gender").value;
     const phone=normalizePhone($("phone").value);
-    if(!birth) return { error:"생년월일을 입력해 주세요." };
+    if(!birth) return { error:"생년월일을 선택해 주세요." };
     if(!gender) return { error:"성별을 선택해 주세요." };
     if(!PHONE_PATTERN.test(phone)) return { error:"휴대폰 번호 형식이 올바르지 않습니다. (예: 01012345678)" };
     return { birth, gender, phone };
