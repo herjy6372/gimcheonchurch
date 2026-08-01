@@ -122,8 +122,10 @@
     const ref = doc(db,"users",user.uid);
     const snap = await getDoc(ref);
     if(!snap.exists()){
-      // 구글로 처음 로그인한 경우 등 문서가 없으면 대기 상태로 생성
-      await setDoc(ref, { name:user.displayName||"", email:user.email||"", approved:false, admin:false, createdAt:serverTimestamp() });
+      // 구글로 처음 로그인한 경우 등 문서가 없으면 생성 (자동승인 모드가 켜져 있으면 즉시 승인)
+      const settingsSnap = await getDoc(doc(db,"settings","general"));
+      const autoApprove = settingsSnap.exists() && settingsSnap.data().autoApprove === true;
+      await setDoc(ref, { name:user.displayName||"", email:user.email||"", approved:autoApprove, admin:false, createdAt:serverTimestamp() });
     }
     location.href = "member.html";
   }

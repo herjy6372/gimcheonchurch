@@ -58,8 +58,23 @@
         </div>
       </div>
 
+      <!-- 자동승인 모드 -->
+      <div class="admin-item" style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+        <div>
+          <strong>자동승인 모드</strong>
+          <p style="margin:4px 0 0;font-size:13px;color:#777;">켜두면 새로 가입하는 사람이 승인 절차 없이 즉시 이용할 수 있습니다. 행사 등으로 일시적으로만 켜고, 끝나면 꼭 꺼주세요.</p>
+        </div>
+        <label style="display:flex;align-items:center;gap:6px;white-space:nowrap;cursor:pointer;">
+          <input type="checkbox" id="autoApproveToggle" style="width:18px;height:18px;">
+          <span id="autoApproveStatus">꺼짐</span>
+        </label>
+      </div>
+
       <!-- 가입 승인 -->
-      <h2 class="member-h2">승인 대기 회원</h2>
+      <h2 class="member-h2" style="display:flex;align-items:center;justify-content:space-between;">
+        승인 대기 회원
+        <button class="btn-mini approve" id="approveAllBtn" style="font-size:13px;">전체 승인</button>
+      </h2>
       <div id="pendingList" class="admin-list"></div>
       <p id="pendingEmpty" class="album-empty" style="display:none;">승인 대기 중인 회원이 없습니다.</p>
 
@@ -95,7 +110,7 @@
   import { auth, db } from "./firebase-init.js";
   import { onAuthStateChanged, signOut }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import { doc, getDoc, updateDoc, deleteDoc, collection, getDocs, addDoc, query, orderBy, serverTimestamp }
+  import { doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs, addDoc, query, orderBy, serverTimestamp }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const $ = (id)=>document.getElementById(id);
@@ -110,11 +125,14 @@
     return parts.length? '<br><span class="email">'+esc(parts.join(" · "))+'</span>' : "";
   }
 
+  let pendingIds = [];
+
   async function loadUsers(){
     const pend=$("pendingList"), all=$("allList");
     pend.innerHTML=""; all.innerHTML="";
     const snap = await getDocs(collection(db,"users"));
     let pendingCount=0;
+    pendingIds = [];
     const rows=[];
     snap.forEach(d=>rows.push({id:d.id, ...d.data()}));
     rows.sort((a,b)=> (a.approved===b.approved)?0:(a.approved?1:-1));
@@ -127,6 +145,7 @@
       // 승인 대기 목록
       if(!u.approved && !u.admin){
         pendingCount++;
+        pendingIds.push(u.id);
         const p=document.createElement("div"); p.className="admin-item";
         p.innerHTML='<div><strong>'+esc(u.name||"(이름없음)")+'</strong><br><span class="email">'+esc(u.email)+'</span>'+extraInfo(u)+'</div>';
         const btns=document.createElement("div"); btns.className="admin-btns";
@@ -139,6 +158,38 @@
       }
     });
     $("pendingEmpty").style.display = pendingCount? "none":"block";
+  }
+
+  $("approveAllBtn").addEventListener("click", async ()=>{
+    if(!pendingIds.length){ alert("승인 대기 중인 회원이 없습니다."); return; }
+    if(!confirm("승인 대기 중인 "+pendingIds.length+"명을 모두 승인할까요?")) return;
+    $("approveAllBtn").disabled = true;
+    await Promise.all(pendingIds.map(id => updateDoc(doc(db,"users",id), {approved:true})));
+    $("approveAllBtn").disabled = false;
+    loadUsers();
+  });
+
+  function renderAutoApprove(on){
+    $("autoApproveToggle").checked = !!on;
+    $("autoApproveStatus").textContent = on? "켜짐" : "꺼짐";
+  }
+
+  $("autoApproveToggle").addEventListener("change", async (e)=>{
+    const on = e.target.checked;
+    e.target.disabled = true;
+    try{
+      await setDoc(doc(db,"settings","general"), { autoApprove: on }, { merge:true });
+      renderAutoApprove(on);
+    }catch(err){
+      alert("설정 저장 실패: "+err.message);
+      e.target.checked = !on;
+    }
+    e.target.disabled = false;
+  });
+
+  async function loadAutoApprove(){
+    const snap = await getDoc(doc(db,"settings","general"));
+    renderAutoApprove(snap.exists() && snap.data().autoApprove === true);
   }
 
   $("postBtn").addEventListener("click", async ()=>{
@@ -162,6 +213,7 @@
       $("who").textContent = data.name || user.email;
       $("panel").style.display="";
       loadUsers();
+      loadAutoApprove();
     }else{
       $("denied").style.display="";
     }
