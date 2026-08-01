@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded',function(){
     lb.className='lightbox';
     lb.innerHTML=
       '<button class="lb-close" aria-label="닫기">✕</button>'+
+      '<button class="lb-play" aria-label="자동재생">▶</button>'+
       '<button class="lb-prev" aria-label="이전 사진">‹</button>'+
       '<img class="lb-img" src="" alt="">'+
       '<button class="lb-next" aria-label="다음 사진">›</button>'+
@@ -108,14 +109,32 @@ document.addEventListener('DOMContentLoaded',function(){
     document.body.appendChild(lb);
     var lbImg=lb.querySelector('.lb-img');
     var lbCount=lb.querySelector('.lb-count');
+    var lbPlay=lb.querySelector('.lb-play');
     var items=[], idx=0;
+    var playTimer=null, playing=false;
     function render(){
       var a=items[idx];
       lbImg.src=a.getAttribute('href');
       lbImg.alt=(a.querySelector('img')||{}).alt||'';
       lbCount.textContent=(idx+1)+' / '+items.length;
     }
+    function stopPlay(){
+      playing=false;
+      clearInterval(playTimer);
+      lbPlay.textContent='▶';
+      lbPlay.setAttribute('aria-label','자동재생');
+    }
+    function startPlay(){
+      playing=true;
+      lbPlay.textContent='⏸';
+      lbPlay.setAttribute('aria-label','정지');
+      playTimer=setInterval(function(){
+        if(idx>=items.length-1){ stopPlay(); return; }
+        next();
+      },2500);
+    }
     function openAt(a){
+      stopPlay();
       items=[].slice.call(grid.querySelectorAll('a.thumb')).filter(function(t){return t.offsetParent!==null;});
       idx=items.indexOf(a);
       if(idx<0)return;
@@ -123,7 +142,7 @@ document.addEventListener('DOMContentLoaded',function(){
       lb.classList.add('open');
       document.body.style.overflow='hidden';
     }
-    function closeLb(){lb.classList.remove('open');lbImg.src='';document.body.style.overflow='';}
+    function closeLb(){stopPlay();lb.classList.remove('open');lbImg.src='';document.body.style.overflow='';}
     function prev(){idx=(idx-1+items.length)%items.length;render();}
     function next(){idx=(idx+1)%items.length;render();}
     grid.addEventListener('click',function(e){
@@ -133,14 +152,26 @@ document.addEventListener('DOMContentLoaded',function(){
       openAt(a);
     });
     lb.querySelector('.lb-close').addEventListener('click',closeLb);
-    lb.querySelector('.lb-prev').addEventListener('click',function(e){e.stopPropagation();prev();});
-    lb.querySelector('.lb-next').addEventListener('click',function(e){e.stopPropagation();next();});
+    lb.querySelector('.lb-prev').addEventListener('click',function(e){e.stopPropagation();stopPlay();prev();});
+    lb.querySelector('.lb-next').addEventListener('click',function(e){e.stopPropagation();stopPlay();next();});
+    lbPlay.addEventListener('click',function(e){e.stopPropagation();playing?stopPlay():startPlay();});
     lb.addEventListener('click',function(e){if(e.target===lb)closeLb();});
     document.addEventListener('keydown',function(e){
       if(!lb.classList.contains('open'))return;
       if(e.key==='Escape')closeLb();
-      else if(e.key==='ArrowLeft')prev();
-      else if(e.key==='ArrowRight')next();
+      else if(e.key==='ArrowLeft'){stopPlay();prev();}
+      else if(e.key==='ArrowRight'){stopPlay();next();}
     });
+
+    // 제목(행사)과 상관없이 첫 사진부터 마지막 사진까지 자동 재생
+    var slideshowBtn=document.getElementById('slideshowBtn');
+    if(slideshowBtn){
+      slideshowBtn.addEventListener('click',function(){
+        var allTab=document.querySelector('#yearTabs button[data-year="all"]');
+        if(allTab) allTab.click();
+        var firstThumb=grid.querySelector('a.thumb');
+        if(firstThumb){ openAt(firstThumb); startPlay(); }
+      });
+    }
   }
 });
