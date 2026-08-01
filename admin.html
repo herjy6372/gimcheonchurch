@@ -98,6 +98,14 @@
   const $ = (id)=>document.getElementById(id);
   $("logoutBtn").addEventListener("click", ()=>signOut(auth).then(()=>location.href="index.html"));
   function esc(s){ return (s||"").replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+  function genderLabel(g){ return g==="M"?"남":g==="F"?"여":""; }
+  function extraInfo(u){
+    const parts=[];
+    if(u.birth) parts.push(u.birth);
+    if(u.gender) parts.push(genderLabel(u.gender));
+    if(u.phone) parts.push(u.phone);
+    return parts.length? '<br><span class="email">'+esc(parts.join(" · "))+'</span>' : "";
+  }
 
   async function loadUsers(){
     const pend=$("pendingList"), all=$("allList");
@@ -111,13 +119,13 @@
       // 전체 목록
       const badge = u.admin? '<span class="tag admin">관리자</span>' : (u.approved? '<span class="tag ok">승인</span>':'<span class="tag wait">대기</span>');
       const a=document.createElement("div"); a.className="admin-item";
-      a.innerHTML='<div><strong>'+esc(u.name||"(이름없음)")+'</strong> '+badge+'<br><span class="email">'+esc(u.email)+'</span></div>';
+      a.innerHTML='<div><strong>'+esc(u.name||"(이름없음)")+'</strong> '+badge+'<br><span class="email">'+esc(u.email)+'</span>'+extraInfo(u)+'</div>';
       all.appendChild(a);
       // 승인 대기 목록
       if(!u.approved && !u.admin){
         pendingCount++;
         const p=document.createElement("div"); p.className="admin-item";
-        p.innerHTML='<div><strong>'+esc(u.name||"(이름없음)")+'</strong><br><span class="email">'+esc(u.email)+'</span></div>';
+        p.innerHTML='<div><strong>'+esc(u.name||"(이름없음)")+'</strong><br><span class="email">'+esc(u.email)+'</span>'+extraInfo(u)+'</div>';
         const btns=document.createElement("div"); btns.className="admin-btns";
         const ok=document.createElement("button"); ok.className="btn-mini approve"; ok.textContent="승인";
         ok.onclick=async()=>{ ok.disabled=true; await updateDoc(doc(db,"users",u.id),{approved:true}); loadUsers(); };

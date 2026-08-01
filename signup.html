@@ -46,6 +46,22 @@
         <input id="name" type="text" placeholder="성함을 입력하세요" autocomplete="name" required>
       </div>
       <div class="field">
+        <label for="birth">생년월일</label>
+        <input id="birth" type="date" required>
+      </div>
+      <div class="field">
+        <label for="gender">성별</label>
+        <select id="gender" required>
+          <option value="" disabled selected>선택해 주세요</option>
+          <option value="M">남</option>
+          <option value="F">여</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="phone">휴대폰 번호</label>
+        <input id="phone" type="tel" placeholder="01012345678" autocomplete="tel" inputmode="numeric" required>
+      </div>
+      <div class="field">
         <label for="email">아이디 또는 이메일</label>
         <input id="email" type="text" placeholder="아이디(영문·숫자) 또는 example@email.com" autocomplete="username" required>
       </div>
@@ -59,6 +75,7 @@
       </div>
       <button type="submit" class="btn-full btn-navy" id="signupBtn">가입하기</button>
     </form>
+    <p class="auth-note" style="margin-top:14px;">생년월일·성별·휴대폰 번호는 아래 구글 가입 버튼을 누르시기 전에도 먼저 입력해 주세요. 같은 휴대폰 번호로는 중복 가입할 수 없습니다.</p>
 
     <div class="auth-divider">또는</div>
 
@@ -107,10 +124,33 @@
   const msg = document.getElementById("msg");
   function show(text, ok){ msg.textContent=text; msg.className="auth-msg "+(ok?"ok":"err"); msg.style.display="block"; msg.scrollIntoView({block:"nearest"}); }
 
+  const $ = (id)=>document.getElementById(id);
+
   // 아이디(도메인 없는 계정) 지원: 내부적으로만 가짜 이메일로 변환해 Firebase 이메일/비밀번호 로그인을 재사용
   const ID_DOMAIN = "@id.gimcheonchurch.kr";
   const ID_PATTERN = /^[A-Za-z0-9_.-]{4,30}$/;
   function toAuthEmail(input){ return input.includes("@") ? input : input + ID_DOMAIN; }
+
+  // 휴대폰 번호 중복 가입 방지
+  const PHONE_PATTERN = /^01[0-9]{8,9}$/;
+  function normalizePhone(v){ return (v||"").replace(/\D/g,""); }
+  async function isPhoneTaken(phone){
+    const snap = await getDoc(doc(db,"phoneNumbers",phone));
+    return snap.exists();
+  }
+  async function claimPhone(phone){
+    await setDoc(doc(db,"phoneNumbers",phone), { createdAt: serverTimestamp() });
+  }
+
+  function readExtraFields(){
+    const birth=$("birth").value;
+    const gender=$("gender").value;
+    const phone=normalizePhone($("phone").value);
+    if(!birth) return { error:"생년월일을 입력해 주세요." };
+    if(!gender) return { error:"성별을 선택해 주세요." };
+    if(!PHONE_PATTERN.test(phone)) return { error:"휴대폰 번호 형식이 올바르지 않습니다. (예: 01012345678)" };
+    return { birth, gender, phone };
+  }
 
   function errText(code){
     switch(code){
@@ -121,40 +161,58 @@
     }
   }
 
-  async function createUserDoc(user, name, displayEmail){
+  // 신규 가입일 때만 휴대폰 번호를 선점하고 회원 문서를 만든다. 이미 가입된 계정이면 그대로 통과(로그인 처리).
+  async function createUserDoc(user, name, displayEmail, extra){
     const ref = doc(db,"users",user.uid);
     const snap = await getDoc(ref);
-    if(!snap.exists()){
-      await setDoc(ref, { name:name||user.displayName||"", email:displayEmail||user.email||"", approved:false, admin:false, createdAt:serverTimestamp() });
+    if(snap.exists()) return;
+    try{
+      await claimPhone(extra.phone);
+    }catch(e){
+      await user.delete();
+      throw new Error("PHONE_TAKEN");
     }
+    await setDoc(ref, { name:name||user.displayName||"", email:displayEmail||user.email||"", birth:extra.birth, gender:extra.gender, phone:extra.phone, approved:false, admin:false, createdAt:serverTimestamp() });
   }
 
   document.getElementById("signupForm").addEventListener("submit", async (e)=>{
     e.preventDefault();
-    const name=document.getElementById("name").value.trim();
-    const raw=document.getElementById("email").value.trim();
-    const pw=document.getElementById("pw").value;
-    const pw2=document.getElementById("pw2").value;
+    const name=$("name").value.trim();
+    const raw=$("email").value.trim();
+    const pw=$("pw").value;
+    const pw2=$("pw2").value;
     if(pw.length<6){ show("비밀번호는 6자 이상이어야 합니다.", false); return; }
     if(pw!==pw2){ show("비밀번호가 서로 다릅니다.", false); return; }
     if(!raw.includes("@") && !ID_PATTERN.test(raw)){
       show("아이디는 영문·숫자 4자 이상으로 입력해 주세요.", false); return;
     }
-    const authEmail = toAuthEmail(raw);
+    const extra = readExtraFields();
+    if(extra.error){ show(extra.error, false); return; }
     try{
+      if(await isPhoneTaken(extra.phone)){ show("이미 등록된 휴대폰 번호입니다.", false); return; }
+      const authEmail = toAuthEmail(raw);
       const cred = await createUserWithEmailAndPassword(auth, authEmail, pw);
       if(name) await updateProfile(cred.user, { displayName:name });
-      await createUserDoc(cred.user, name, raw);
+      await createUserDoc(cred.user, name, raw, extra);
       location.href = "member.html";
-    }catch(err){ show(errText(err.code), false); }
+    }catch(err){
+      if(err.message==="PHONE_TAKEN") show("이미 등록된 휴대폰 번호입니다.", false);
+      else show(errText(err.code), false);
+    }
   });
 
   document.getElementById("googleBtn").addEventListener("click", async ()=>{
+    const extra = readExtraFields();
+    if(extra.error){ show(extra.error, false); return; }
     try{
+      if(await isPhoneTaken(extra.phone)){ show("이미 등록된 휴대폰 번호입니다.", false); return; }
       const cred = await signInWithPopup(auth, new GoogleAuthProvider());
-      await createUserDoc(cred.user, "", cred.user.email||"");
+      await createUserDoc(cred.user, "", cred.user.email||"", extra);
       location.href = "member.html";
-    }catch(err){ if(err.code!=="auth/popup-closed-by-user") show(errText(err.code), false); }
+    }catch(err){
+      if(err.message==="PHONE_TAKEN") show("이미 등록된 휴대폰 번호입니다.", false);
+      else if(err.code!=="auth/popup-closed-by-user") show(errText(err.code), false);
+    }
   });
 </script>
 </body>
