@@ -40,20 +40,13 @@
 <section class="page-hero">
   <div class="wrap">
     <span class="eyebrow">Board</span>
-    <h1>게시판</h1>
+    <h1 id="boardTitle">게시판</h1>
     <div class="rule"></div>
   </div>
 </section>
 
 <section class="block">
   <div class="wrap" style="max-width:760px;">
-
-    <div class="year-tabs" id="boardTabs">
-      <button class="active" data-board="notice">교회소식</button>
-      <button data-board="men">남전도회</button>
-      <button data-board="women">여전도회</button>
-      <button data-board="youth">청년회</button>
-    </div>
 
     <div id="loading" class="member-state">불러오는 중…</div>
 
@@ -197,6 +190,7 @@
 
   const validHash = location.hash.replace("#","");
   let currentUser=null, currentData=null, activeBoard = BOARDS[validHash] ? validHash : "notice";
+  let renderToken = 0;
 
   function canWrite(boardId){
     if(!currentData) return false;
@@ -210,6 +204,7 @@
   }
 
   async function renderBoard(boardId){
+    const myToken = ++renderToken;
     const panel = document.querySelector('.board-panel[data-board="'+boardId+'"]');
     const meta = BOARDS[boardId];
     const loginNeeded = panel.querySelector(".board-login-needed");
@@ -240,10 +235,12 @@
         snap = await getDocs(query(collection(db,"posts"), where("board","==",meta.filterBoard), orderBy("createdAt","desc")));
       }
     }catch(e){
+      if(myToken!==renderToken) return; // 그 사이 다른 게시판으로 이동했으면 이 결과는 버린다
       emptyEl.textContent = "게시글을 불러오지 못했습니다.";
       emptyEl.style.display = "block";
       return;
     }
+    if(myToken!==renderToken) return; // 응답이 늦게 온 사이 다른 게시판으로 이동한 경우 무시
     if(snap.empty){
       emptyEl.textContent = "아직 등록된 글이 없습니다.";
       emptyEl.style.display = "block";
@@ -276,20 +273,18 @@
 
   function switchTab(boardId){
     activeBoard = boardId;
-    document.querySelectorAll("#boardTabs button").forEach(function(b){ b.classList.toggle("active", b.dataset.board===boardId); });
+    const meta = BOARDS[boardId];
+    $("boardTitle").textContent = meta.label;
+    document.title = meta.label + " · 김천침례교회";
     document.querySelectorAll(".board-panel").forEach(function(p){ p.style.display = (p.dataset.board===boardId)? "" : "none"; });
     renderBoard(boardId);
   }
 
-  // 게시판 페이지 안에서 상단 메뉴의 다른 게시판 링크(board.html#xxx)를 클릭하면
-  // 페이지가 다시 로드되지 않고 해시만 바뀌므로, hashchange를 감지해서 탭을 전환한다.
+  // 상단 메뉴의 다른 게시판 링크(board.html#xxx)를 누르면 페이지가 다시 로드되지 않고
+  // 해시만 바뀌므로, hashchange를 감지해서 해당 게시판으로 전환한다.
   window.addEventListener("hashchange", function(){
     const h = location.hash.replace("#","");
     switchTab(BOARDS[h] ? h : "notice");
-  });
-
-  document.querySelectorAll("#boardTabs button").forEach(function(btn){
-    btn.addEventListener("click", function(){ switchTab(btn.dataset.board); });
   });
 
   document.querySelectorAll(".board-write-toggle").forEach(function(btn){
