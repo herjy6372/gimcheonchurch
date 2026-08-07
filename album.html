@@ -106,7 +106,14 @@
       <button data-year="etc">기타</button>
     </div>
 
-    <button type="button" id="slideshowBtn" class="btn-outline" style="display:block;margin:16px auto 0;">▶ 슬라이드쇼로 보기</button>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+      <button type="button" id="slideshowBtn" class="btn-outline">▶ 슬라이드쇼로 보기</button>
+      <button type="button" id="downloadAllBtn" class="btn-outline">⬇ 전체 다운로드</button>
+    </div>
+    <div id="downloadProgress" style="display:none;max-width:420px;margin:14px auto 0;text-align:center;font-size:13px;color:var(--muted);">
+      <span id="downloadProgressText">다운로드 중…</span>
+      <button type="button" id="downloadCancelBtn" class="btn-outline" style="margin-left:8px;padding:4px 12px;font-size:12px;">취소</button>
+    </div>
 
     <!--
       사진 추가 방법:
@@ -1761,6 +1768,7 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script src="script.js"></script>
 <script type="module" src="auth-nav.js"></script>
 <script type="module">

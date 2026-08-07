@@ -173,5 +173,110 @@ document.addEventListener('DOMContentLoaded',function(){
         if(firstThumb){ openAt(firstThumb); startPlay(); }
       });
     }
+
+    // 우클릭/드래그로 사진 저장 방지 — 다운로드는 아래 다운로드 버튼으로만
+    grid.addEventListener('contextmenu',function(e){
+      if(e.target.closest('a.thumb, img')) e.preventDefault();
+    });
+    grid.querySelectorAll('img').forEach(function(img){ img.setAttribute('draggable','false'); });
+    lbImg.setAttribute('draggable','false');
+    lb.addEventListener('contextmenu',function(e){
+      if(e.target===lbImg) e.preventDefault();
+    });
+
+    // 사진 다운로드 (전체 / 행사별) — ZIP으로 묶어서 다운로드
+    var downloadProgress=document.getElementById('downloadProgress');
+    var downloadProgressText=document.getElementById('downloadProgressText');
+    var downloadCancelBtn=document.getElementById('downloadCancelBtn');
+    var downloadCancelled=false;
+
+    function sanitizeName(s){
+      var n=(s||'앨범').replace(/[\\/:*?"<>|]/g,'_').trim();
+      return (n||'앨범').slice(0,80);
+    }
+    function eventTitleFor(a){
+      var ev=a.closest('.event');
+      var t=ev && ev.querySelector('.event-title strong');
+      return t? t.textContent.trim() : '기타';
+    }
+    function showProgress(done,total){
+      downloadProgress.style.display='block';
+      downloadProgressText.textContent='다운로드 중… ('+done+' / '+total+')';
+    }
+    function hideProgress(){ downloadProgress.style.display='none'; }
+
+    async function downloadZip(thumbs, zipFilename, groupByEvent){
+      if(typeof JSZip==='undefined'){ alert('다운로드 기능을 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.'); return; }
+      if(!thumbs.length){ alert('다운로드할 사진이 없습니다.'); return; }
+      downloadCancelled=false;
+      downloadCancelBtn.style.display='inline-block';
+      var zip=new JSZip();
+      var counters={};
+      var total=thumbs.length;
+      showProgress(0,total);
+      for(var i=0;i<total;i++){
+        if(downloadCancelled) break;
+        var a=thumbs[i];
+        var url=a.getAttribute('href');
+        var ext=(url.split('.').pop()||'jpg').toLowerCase();
+        var name;
+        if(groupByEvent){
+          var title=sanitizeName(eventTitleFor(a));
+          counters[title]=(counters[title]||0)+1;
+          name=title+'/'+String(counters[title]).padStart(2,'0')+'.'+ext;
+        }else{
+          counters._=(counters._||0)+1;
+          name=String(counters._).padStart(2,'0')+'.'+ext;
+        }
+        try{
+          var resp=await fetch(url);
+          if(resp.ok){ zip.file(name, await resp.blob()); }
+        }catch(e){ /* 개별 사진 실패는 건너뛰고 계속 진행 */ }
+        showProgress(i+1,total);
+      }
+      downloadCancelBtn.style.display='none';
+      if(downloadCancelled){ hideProgress(); return; }
+      downloadProgressText.textContent='압축 파일 만드는 중…';
+      var content=await zip.generateAsync({type:'blob', compression:'STORE'});
+      var link=document.createElement('a');
+      link.href=URL.createObjectURL(content);
+      link.download=zipFilename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      hideProgress();
+    }
+
+    if(downloadCancelBtn){
+      downloadCancelBtn.addEventListener('click',function(){ downloadCancelled=true; });
+    }
+
+    var downloadAllBtn=document.getElementById('downloadAllBtn');
+    if(downloadAllBtn){
+      downloadAllBtn.addEventListener('click',function(){
+        var all=[].slice.call(grid.querySelectorAll('a.thumb'));
+        if(!confirm('전체 사진 '+all.length+'장을 다운로드합니다. 용량이 크고 시간이 오래 걸릴 수 있습니다. 계속할까요?')) return;
+        downloadZip(all, '김천침례교회_사진첩_전체.zip', true);
+      });
+    }
+
+    // 행사별 다운로드 버튼을 각 제목 옆에 추가
+    grid.querySelectorAll('.event').forEach(function(ev){
+      var titleEl=ev.querySelector('.event-title');
+      var thumbs=[].slice.call(ev.querySelectorAll('.thumb-grid a.thumb'));
+      if(!titleEl || !thumbs.length) return;
+      var dbtn=document.createElement('button');
+      dbtn.type='button';
+      dbtn.className='event-download-btn';
+      dbtn.textContent='⬇ 다운로드';
+      dbtn.setAttribute('aria-label','이 행사 사진 다운로드');
+      dbtn.addEventListener('click',function(e){
+        e.stopPropagation();
+        var strongEl=titleEl.querySelector('strong');
+        var name=sanitizeName(strongEl? strongEl.textContent.trim() : '앨범')+'.zip';
+        downloadZip(thumbs, name, false);
+      });
+      titleEl.appendChild(dbtn);
+    });
   }
 });
