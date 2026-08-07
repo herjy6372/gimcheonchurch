@@ -27,7 +27,10 @@
         <li><a href="intro.html">소개</a></li>
         <li><a href="history.html">연혁</a></li>
         <li><a href="album.html">앨범</a></li>
-        <li><a href="board.html" class="active">게시판</a></li>
+        <li><a href="board.html#notice">교회소식</a></li>
+        <li><a href="board.html#men">남전도회</a></li>
+        <li><a href="board.html#women">여전도회</a></li>
+        <li><a href="board.html#youth">청년회</a></li>
         <li id="navAuth"><a href="login.html">로그인</a></li>
       </ul>
     </nav>
@@ -64,14 +67,19 @@
           <p>이 게시판은 가입한 회원만 열람하실 수 있습니다.</p>
           <a href="login.html" class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;display:block;text-decoration:none;">로그인 하러 가기</a>
         </div>
-        <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
-          <div class="board-msg auth-msg" style="display:none;"></div>
-          <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
-          <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
-          <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
-        </form>
-        <div class="notice-list"></div>
-        <p class="board-empty album-empty" style="display:none;"></p>
+        <div class="board-content">
+          <div style="text-align:right;margin-bottom:14px;">
+            <button type="button" class="btn-outline board-write-toggle" style="display:none;">✏ 글쓰기</button>
+          </div>
+          <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
+            <div class="board-msg auth-msg" style="display:none;"></div>
+            <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
+            <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
+            <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
+          </form>
+          <div class="notice-list"></div>
+          <p class="board-empty album-empty" style="display:none;"></p>
+        </div>
       </div>
 
       <!-- 남전도회 -->
@@ -82,14 +90,19 @@
           <p>이 게시판은 가입한 회원만 열람하실 수 있습니다.</p>
           <a href="login.html" class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;display:block;text-decoration:none;">로그인 하러 가기</a>
         </div>
-        <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
-          <div class="board-msg auth-msg" style="display:none;"></div>
-          <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
-          <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
-          <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
-        </form>
-        <div class="notice-list"></div>
-        <p class="board-empty album-empty" style="display:none;"></p>
+        <div class="board-content">
+          <div style="text-align:right;margin-bottom:14px;">
+            <button type="button" class="btn-outline board-write-toggle" style="display:none;">✏ 글쓰기</button>
+          </div>
+          <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
+            <div class="board-msg auth-msg" style="display:none;"></div>
+            <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
+            <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
+            <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
+          </form>
+          <div class="notice-list"></div>
+          <p class="board-empty album-empty" style="display:none;"></p>
+        </div>
       </div>
 
       <!-- 여전도회 -->
@@ -100,14 +113,19 @@
           <p>이 게시판은 가입한 회원만 열람하실 수 있습니다.</p>
           <a href="login.html" class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;display:block;text-decoration:none;">로그인 하러 가기</a>
         </div>
-        <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
-          <div class="board-msg auth-msg" style="display:none;"></div>
-          <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
-          <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
-          <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
-        </form>
-        <div class="notice-list"></div>
-        <p class="board-empty album-empty" style="display:none;"></p>
+        <div class="board-content">
+          <div style="text-align:right;margin-bottom:14px;">
+            <button type="button" class="btn-outline board-write-toggle" style="display:none;">✏ 글쓰기</button>
+          </div>
+          <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
+            <div class="board-msg auth-msg" style="display:none;"></div>
+            <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
+            <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
+            <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
+          </form>
+          <div class="notice-list"></div>
+          <p class="board-empty album-empty" style="display:none;"></p>
+        </div>
       </div>
 
       <!-- 청년회 -->
@@ -118,14 +136,19 @@
           <p>이 게시판은 가입한 회원만 열람하실 수 있습니다.</p>
           <a href="login.html" class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;display:block;text-decoration:none;">로그인 하러 가기</a>
         </div>
-        <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
-          <div class="board-msg auth-msg" style="display:none;"></div>
-          <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
-          <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
-          <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
-        </form>
-        <div class="notice-list"></div>
-        <p class="board-empty album-empty" style="display:none;"></p>
+        <div class="board-content">
+          <div style="text-align:right;margin-bottom:14px;">
+            <button type="button" class="btn-outline board-write-toggle" style="display:none;">✏ 글쓰기</button>
+          </div>
+          <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
+            <div class="board-msg auth-msg" style="display:none;"></div>
+            <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
+            <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
+            <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
+          </form>
+          <div class="notice-list"></div>
+          <p class="board-empty album-empty" style="display:none;"></p>
+        </div>
       </div>
 
     </div>
@@ -172,7 +195,8 @@
     youth:  { label:"청년회",   collection:"posts", filterBoard:"youth" }
   };
 
-  let currentUser=null, currentData=null, activeBoard="notice";
+  const validHash = location.hash.replace("#","");
+  let currentUser=null, currentData=null, activeBoard = BOARDS[validHash] ? validHash : "notice";
 
   function canWrite(boardId){
     if(!currentData) return false;
@@ -189,15 +213,23 @@
     const panel = document.querySelector('.board-panel[data-board="'+boardId+'"]');
     const meta = BOARDS[boardId];
     const loginNeeded = panel.querySelector(".board-login-needed");
-    const writeArea = panel.querySelector(".board-write");
+    const contentArea = panel.querySelector(".board-content");
+    const writeToggle = panel.querySelector(".board-write-toggle");
+    const form = panel.querySelector(".board-write");
     const listEl = panel.querySelector(".notice-list");
     const emptyEl = panel.querySelector(".board-empty");
 
     const needsLogin = !meta.publicRead && !currentUser;
     loginNeeded.style.display = needsLogin ? "" : "none";
-    if(needsLogin){ listEl.innerHTML=""; emptyEl.style.display="none"; writeArea.style.display="none"; return; }
+    contentArea.style.display = needsLogin ? "none" : "";
+    if(needsLogin){ listEl.innerHTML=""; emptyEl.style.display="none"; return; }
 
-    writeArea.style.display = canWrite(boardId) ? "" : "none";
+    // 글쓰기 폼은 기본적으로 숨기고, 권한이 있는 사람에게만 "글쓰기" 버튼을 보여준다.
+    // 게시판에 들어오면 목록(또는 "글이 없습니다" 안내)이 먼저 보이는 것이 우선이다.
+    form.style.display = "none";
+    writeToggle.textContent = "✏ 글쓰기";
+    writeToggle.style.display = canWrite(boardId) ? "" : "none";
+
     listEl.innerHTML = "";
 
     let snap;
@@ -251,6 +283,15 @@
 
   document.querySelectorAll("#boardTabs button").forEach(function(btn){
     btn.addEventListener("click", function(){ switchTab(btn.dataset.board); });
+  });
+
+  document.querySelectorAll(".board-write-toggle").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      const form = btn.closest(".board-content").querySelector(".board-write");
+      const open = form.style.display !== "none";
+      form.style.display = open ? "none" : "";
+      btn.textContent = open ? "✏ 글쓰기" : "▲ 접기";
+    });
   });
 
   document.querySelectorAll(".board-write").forEach(function(form){
