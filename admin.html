@@ -70,6 +70,19 @@
         </label>
       </div>
 
+      <!-- 앨범 공개 범위 -->
+      <div class="admin-item" style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:14px;">
+        <div>
+          <strong>앨범 공개 범위</strong>
+          <p style="margin:4px 0 0;font-size:13px;color:#777;">앨범을 누구까지 볼 수 있게 할지 선택하세요.</p>
+        </div>
+        <select id="albumAccessSelect" style="max-width:220px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:14px;background:#fdfbf7;font-family:inherit;color:var(--ink);">
+          <option value="admin">관리자만</option>
+          <option value="members">성도(승인된 회원)</option>
+          <option value="all">모두(비회원 포함)</option>
+        </select>
+      </div>
+
       <!-- 가입 승인 -->
       <h2 class="member-h2" style="display:flex;align-items:center;justify-content:space-between;">
         승인 대기 회원
@@ -274,6 +287,24 @@
     renderAutoApprove(snap.exists() && snap.data().autoApprove === true);
   }
 
+  $("albumAccessSelect").addEventListener("change", async (e)=>{
+    const value = e.target.value;
+    e.target.disabled = true;
+    try{
+      await setDoc(doc(db,"settings","general"), { albumAccess: value }, { merge:true });
+    }catch(err){
+      alert("설정 저장 실패: "+err.message);
+      loadAlbumAccess();
+    }
+    e.target.disabled = false;
+  });
+
+  async function loadAlbumAccess(){
+    const snap = await getDoc(doc(db,"settings","general"));
+    const value = (snap.exists() && snap.data().albumAccess) || "members";
+    $("albumAccessSelect").value = value;
+  }
+
   $("postBtn").addEventListener("click", async ()=>{
     const t=$("nt").value.trim(), b=$("nb").value.trim();
     const msg=$("msg");
@@ -296,6 +327,7 @@
       $("panel").style.display="";
       loadUsers();
       loadAutoApprove();
+      loadAlbumAccess();
     }else{
       $("denied").style.display="";
     }

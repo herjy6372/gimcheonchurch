@@ -45,7 +45,7 @@
     <div class="member-state">
       <div class="state-ico">🔒</div>
       <h2>교인 전용 앨범입니다</h2>
-      <p>앨범은 로그인한 교인만 열람하실 수 있습니다.<br>로그인 또는 회원가입 후 이용해 주세요.</p>
+      <p id="albumLoginNeededText">앨범은 로그인한 교인만 열람하실 수 있습니다.<br>로그인 또는 회원가입 후 이용해 주세요.</p>
       <a href="login.html" class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;display:block;text-decoration:none;">로그인 하러 가기</a>
     </div>
   </div>
@@ -59,6 +59,18 @@
       <h2>승인 대기 중입니다</h2>
       <p>가입해 주셔서 감사합니다.<br>관리자(교회)의 승인이 완료되면 앨범을 보실 수 있습니다.</p>
       <button class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;" id="albumLogoutBtn">로그아웃</button>
+    </div>
+  </div>
+</section>
+
+<!-- 관리자만 열람 가능 -->
+<section class="block" id="albumAdminOnly" style="display:none;">
+  <div class="wrap" style="max-width:820px;">
+    <div class="member-state">
+      <div class="state-ico">🔒</div>
+      <h2>관리자만 볼 수 있는 앨범입니다</h2>
+      <p>현재 앨범 공개 범위가 관리자로 제한되어 있습니다.</p>
+      <button class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;" id="albumLogoutBtn2">로그아웃</button>
     </div>
   </div>
 </section>
@@ -1759,21 +1771,46 @@
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const $ = (id)=>document.getElementById(id);
-  $("albumLogoutBtn").addEventListener("click", ()=>{
-    signOut(auth).then(()=>location.href="index.html");
-  });
+  function logout(){ signOut(auth).then(()=>location.href="index.html"); }
+  $("albumLogoutBtn").addEventListener("click", logout);
+  $("albumLogoutBtn2").addEventListener("click", logout);
 
-  onAuthStateChanged(auth, async (user)=>{
-    $("albumLoading").style.display="none";
-    if(!user){ $("albumLoginNeeded").style.display=""; return; }
-    const snap = await getDoc(doc(db,"users",user.uid));
-    const data = snap.exists()? snap.data() : {approved:false, admin:false};
-    if(!data.birth || !data.phone){ location.href="profile.html"; return; }
-    if(data.approved){
+  async function getAlbumAccess(){
+    const snap = await getDoc(doc(db,"settings","general"));
+    return (snap.exists() && snap.data().albumAccess) || "members";
+  }
+
+  getAlbumAccess().then(function(access){
+    // 모두 공개: 로그인 여부와 상관없이 바로 열람
+    if(access==="all"){
+      $("albumLoading").style.display="none";
       $("albumContent").style.display="";
-    }else{
-      $("albumPending").style.display="";
+      return;
     }
+    if(access==="admin"){
+      $("albumLoginNeededText").textContent = "앨범은 관리자만 열람하실 수 있습니다.";
+    }
+    onAuthStateChanged(auth, async (user)=>{
+      $("albumLoading").style.display="none";
+      if(!user){ $("albumLoginNeeded").style.display=""; return; }
+      const snap = await getDoc(doc(db,"users",user.uid));
+      const data = snap.exists()? snap.data() : {approved:false, admin:false};
+      if(!data.birth || !data.phone){ location.href="profile.html"; return; }
+      if(data.admin){
+        $("albumContent").style.display="";
+        return;
+      }
+      if(access==="admin"){
+        $("albumAdminOnly").style.display="";
+        return;
+      }
+      // access === "members"
+      if(data.approved){
+        $("albumContent").style.display="";
+      }else{
+        $("albumPending").style.display="";
+      }
+    });
   });
 </script>
 </body>
