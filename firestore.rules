@@ -37,7 +37,9 @@ service cloud.firestore {
 
     // 휴대폰 번호 중복 가입 방지용 마커 (소유자 또는 관리자만 해제 가능 — 번호 변경·탈퇴·관리자 수정 시 사용)
     match /phoneNumbers/{phone} {
-      allow read: if true;                 // 가입/수정 전 중복 확인(번호 존재 여부만 노출)
+      // 문서 하나 존재 확인만 공개 허용. list(전체 목록 조회)는 막아서 번호 전체 유출을 방지.
+      allow get: if true;
+      allow list: if false;
       allow create: if signedIn() && (request.resource.data.uid == request.auth.uid || isAdmin());
       allow delete: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
       allow update: if false;
@@ -45,7 +47,9 @@ service cloud.firestore {
 
     // 사이트 설정 (자동승인 모드 등, 민감정보 없음)
     match /settings/{id} {
-      allow read: if true;   // 회원가입 화면에서 로그인 전에도 자동승인 여부를 안내해야 함
+      // 문서 하나 조회만 공개 허용(회원가입 화면에서 로그인 전 확인용). list는 막음.
+      allow get: if true;
+      allow list: if false;
       allow write: if isAdmin();
     }
   }

@@ -184,6 +184,14 @@
 
   $("withdrawBtn").addEventListener("click", async ()=>{
     if(!confirm("정말 탈퇴하시겠습니까?\n가입 정보가 모두 삭제되며 되돌릴 수 없습니다.")) return;
+
+    // 로그인한 지 오래됐으면 계정 삭제 단계에서 재로그인이 필요하다는 오류가 남 — 정보 삭제 전에 미리 확인해서 헛되이 지우지 않도록 함
+    const lastSignIn = (currentUser.metadata && currentUser.metadata.lastSignInTime) ? new Date(currentUser.metadata.lastSignInTime).getTime() : 0;
+    if(Date.now() - lastSignIn > 4*60*1000){
+      show("보안을 위해 재로그인이 필요합니다. 로그아웃 후 다시 로그인한 뒤 곧바로 탈퇴를 진행해 주세요.", false);
+      return;
+    }
+
     $("withdrawBtn").disabled = true;
     try{
       if(currentData.phone){
@@ -196,7 +204,7 @@
     }catch(err){
       $("withdrawBtn").disabled = false;
       if(err.code === "auth/requires-recent-login"){
-        show("보안을 위해 재로그인이 필요합니다. 로그아웃 후 다시 로그인한 뒤 곧바로 탈퇴를 진행해 주세요.", false);
+        show("가입 정보는 삭제되었습니다. 로그인 계정을 마저 삭제하려면 로그아웃 후 다시 로그인한 뒤 탈퇴를 한 번 더 눌러주세요.", false);
       }else{
         show("탈퇴 중 오류가 발생했습니다. ("+(err.code||err.message)+")", false);
       }
