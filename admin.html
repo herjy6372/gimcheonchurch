@@ -23,7 +23,9 @@
       <button class="menu-btn" aria-label="메뉴" onclick="toggleMenu()">☰</button>
       <ul id="menu">
         <li><a href="index.html">메인</a></li>
+        <li><a href="newfamily.html">새가족안내</a></li>
         <li><a href="album.html">앨범</a></li>
+        <li><a href="board.html">게시판</a></li>
         <li><a href="member.html">전용공간</a></li>
         <li id="navAuth"><a href="login.html">로그인</a></li>
       </ul>
@@ -136,6 +138,7 @@
     if(u.birth) parts.push(u.birth);
     if(u.gender) parts.push(genderLabel(u.gender));
     if(u.phone) parts.push(u.phone);
+    if(u.role) parts.push(u.role);
     return parts.length? '<br><span class="email">'+esc(parts.join(" · "))+'</span>' : "";
   }
 
@@ -164,6 +167,9 @@
     genderSel.innerHTML='<option value="" disabled>선택</option><option value="M">남</option><option value="F">여</option>';
     genderSel.value=u.gender||"";
     const phoneInput=document.createElement("input"); phoneInput.type="tel"; phoneInput.value=u.phone||""; phoneInput.placeholder="01012345678";
+    const roleSel=document.createElement("select");
+    roleSel.innerHTML='<option value="">성도</option><option value="집사">집사</option><option value="목사">목사</option><option value="청년">청년</option>';
+    roleSel.value=u.role||"";
     const errMsg=document.createElement("div"); errMsg.style.cssText="font-size:12px;color:#a3452f;display:none;";
 
     const btnRow=document.createElement("div"); btnRow.className="admin-btns";
@@ -171,7 +177,7 @@
     const cancelBtn=document.createElement("button"); cancelBtn.className="btn-mini reject"; cancelBtn.textContent="취소";
     btnRow.appendChild(saveBtn); btnRow.appendChild(cancelBtn);
 
-    [field("이름", nameInput), field("생년월일", birthRow), field("성별", genderSel), field("휴대폰 번호", phoneInput), errMsg, btnRow]
+    [field("이름", nameInput), field("생년월일", birthRow), field("성별", genderSel), field("휴대폰 번호", phoneInput), field("직분", roleSel), errMsg, btnRow]
       .forEach(el=>panel.appendChild(el));
 
     cancelBtn.onclick=()=>{ panel.style.display="none"; };
@@ -192,7 +198,7 @@
           await setDoc(doc(db,"phoneNumbers",phone), { uid:u.id, createdAt:serverTimestamp() });
           if(oldPhone){ try{ await deleteDoc(doc(db,"phoneNumbers",oldPhone)); }catch(e){ /* 무시 */ } }
         }
-        await updateDoc(doc(db,"users",u.id), { name, birth, gender, phone });
+        await updateDoc(doc(db,"users",u.id), { name, birth, gender, phone, role:roleSel.value });
         loadUsers();
       }catch(err){
         errMsg.textContent="저장 실패: "+(err.code||err.message); errMsg.style.display="block"; saveBtn.disabled=false;
@@ -306,12 +312,14 @@
     $("albumAccessSelect").value = value;
   }
 
+  let myName = "";
+
   $("postBtn").addEventListener("click", async ()=>{
     const t=$("nt").value.trim(), b=$("nb").value.trim();
     const msg=$("msg");
     if(!t||!b){ msg.textContent="제목과 내용을 입력해 주세요."; msg.className="auth-msg err"; msg.style.display="block"; return; }
     try{
-      await addDoc(collection(db,"notices"), { title:t, body:b, createdAt:serverTimestamp() });
+      await addDoc(collection(db,"notices"), { title:t, body:b, authorName:myName, authorUid:auth.currentUser.uid, createdAt:serverTimestamp() });
       $("nt").value=""; $("nb").value="";
       msg.textContent="공지가 등록되었습니다."; msg.className="auth-msg ok"; msg.style.display="block";
     }catch(e){ msg.textContent="등록 실패: "+e.message; msg.className="auth-msg err"; msg.style.display="block"; }
@@ -324,7 +332,8 @@
     if(!data.birth || !data.phone){ location.href="profile.html"; return; }
     $("loading").style.display="none";
     if(data.admin){
-      $("who").textContent = data.name || user.email;
+      myName = data.name || user.email;
+      $("who").textContent = myName;
       $("panel").style.display="";
       loadUsers();
       loadAutoApprove();

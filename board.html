@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게시판 · 김천침례교회</title>
+<meta name="description" content="김천침례교회 교회소식·남전도회·여전도회·청년회 게시판.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%AA%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="index.html" class="brand">
+      <span class="mark">✝</span>
+      <span>
+        <span class="title">김천침례교회</span><br>
+        <span class="sub">GIMCHEON BAPTIST CHURCH · SINCE 1951</span>
+      </span>
+    </a>
+    <nav>
+      <button class="menu-btn" aria-label="메뉴" onclick="toggleMenu()">☰</button>
+      <ul id="menu">
+        <li><a href="index.html">메인</a></li>
+        <li><a href="newfamily.html">새가족안내</a></li>
+        <li><a href="intro.html">소개</a></li>
+        <li><a href="history.html">연혁</a></li>
+        <li><a href="album.html">앨범</a></li>
+        <li><a href="board.html" class="active">게시판</a></li>
+        <li id="navAuth"><a href="login.html">로그인</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Board</span>
+    <h1>게시판</h1>
+    <div class="rule"></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap" style="max-width:760px;">
+
+    <div class="year-tabs" id="boardTabs">
+      <button class="active" data-board="notice">교회소식</button>
+      <button data-board="men">남전도회</button>
+      <button data-board="women">여전도회</button>
+      <button data-board="youth">청년회</button>
+    </div>
+
+    <div id="loading" class="member-state">불러오는 중…</div>
+
+    <div id="boardArea" style="display:none;">
+
+      <!-- 교회소식 -->
+      <div class="board-panel" data-board="notice">
+        <div class="board-login-needed member-state" style="display:none;">
+          <div class="state-ico">🔒</div>
+          <h2>로그인이 필요합니다</h2>
+          <p>이 게시판은 가입한 회원만 열람하실 수 있습니다.</p>
+          <a href="login.html" class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;display:block;text-decoration:none;">로그인 하러 가기</a>
+        </div>
+        <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
+          <div class="board-msg auth-msg" style="display:none;"></div>
+          <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
+          <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
+          <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
+        </form>
+        <div class="notice-list"></div>
+        <p class="board-empty album-empty" style="display:none;"></p>
+      </div>
+
+      <!-- 남전도회 -->
+      <div class="board-panel" data-board="men" style="display:none;">
+        <div class="board-login-needed member-state" style="display:none;">
+          <div class="state-ico">🔒</div>
+          <h2>로그인이 필요합니다</h2>
+          <p>이 게시판은 가입한 회원만 열람하실 수 있습니다.</p>
+          <a href="login.html" class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;display:block;text-decoration:none;">로그인 하러 가기</a>
+        </div>
+        <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
+          <div class="board-msg auth-msg" style="display:none;"></div>
+          <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
+          <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
+          <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
+        </form>
+        <div class="notice-list"></div>
+        <p class="board-empty album-empty" style="display:none;"></p>
+      </div>
+
+      <!-- 여전도회 -->
+      <div class="board-panel" data-board="women" style="display:none;">
+        <div class="board-login-needed member-state" style="display:none;">
+          <div class="state-ico">🔒</div>
+          <h2>로그인이 필요합니다</h2>
+          <p>이 게시판은 가입한 회원만 열람하실 수 있습니다.</p>
+          <a href="login.html" class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;display:block;text-decoration:none;">로그인 하러 가기</a>
+        </div>
+        <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
+          <div class="board-msg auth-msg" style="display:none;"></div>
+          <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
+          <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
+          <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
+        </form>
+        <div class="notice-list"></div>
+        <p class="board-empty album-empty" style="display:none;"></p>
+      </div>
+
+      <!-- 청년회 -->
+      <div class="board-panel" data-board="youth" style="display:none;">
+        <div class="board-login-needed member-state" style="display:none;">
+          <div class="state-ico">🔒</div>
+          <h2>로그인이 필요합니다</h2>
+          <p>이 게시판은 가입한 회원만 열람하실 수 있습니다.</p>
+          <a href="login.html" class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;display:block;text-decoration:none;">로그인 하러 가기</a>
+        </div>
+        <form class="board-write notice-form" style="display:none;margin-bottom:24px;">
+          <div class="board-msg auth-msg" style="display:none;"></div>
+          <div class="field"><label>제목</label><input class="pt" type="text" placeholder="제목을 입력하세요"></div>
+          <div class="field"><label>내용</label><textarea class="pb" rows="4" placeholder="내용을 입력하세요"></textarea></div>
+          <button type="submit" class="btn-full btn-navy" style="max-width:160px;">등록하기</button>
+        </form>
+        <div class="notice-list"></div>
+        <p class="board-empty album-empty" style="display:none;"></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>김천침례교회</h4>
+        <p>기독교 한국침례회<br>담임목사 정재윤</p>
+      </div>
+      <div>
+        <h4>오시는 길</h4>
+        <p>(39608) 경상북도 김천시 평화동 253<br>경북 김천시 평화12길 20</p>
+      </div>
+      <div>
+        <h4>연락처</h4>
+        <p>휴대전화 : 010-4402-2594</p>
+      </div>
+    </div>
+    <div class="copy">© 1951–2025 김천침례교회 (GIMCHEON BAPTIST CHURCH). All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script type="module" src="auth-nav.js"></script>
+<script type="module">
+  import { auth, db } from "./firebase-init.js";
+  import { onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { doc, getDoc, collection, addDoc, deleteDoc, getDocs, query, where, orderBy, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const $ = (id)=>document.getElementById(id);
+  function esc(s){ return (s||"").replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+  function fmt(ts){ try{ return ts.toDate().toLocaleDateString("ko-KR"); }catch(e){ return ""; } }
+
+  const BOARDS = {
+    notice: { label:"교회소식", collection:"notices", publicRead:true },
+    men:    { label:"남전도회", collection:"posts", filterBoard:"men" },
+    women:  { label:"여전도회", collection:"posts", filterBoard:"women" },
+    youth:  { label:"청년회",   collection:"posts", filterBoard:"youth" }
+  };
+
+  let currentUser=null, currentData=null, activeBoard="notice";
+
+  function canWrite(boardId){
+    if(!currentData) return false;
+    if(currentData.admin) return true;
+    if(currentData.role==="목사") return true;
+    if(boardId==="notice") return currentData.role==="집사";
+    if(boardId==="men") return currentData.role==="집사" && currentData.gender==="M";
+    if(boardId==="women") return currentData.role==="집사" && currentData.gender==="F";
+    if(boardId==="youth") return currentData.role==="청년";
+    return false;
+  }
+
+  async function renderBoard(boardId){
+    const panel = document.querySelector('.board-panel[data-board="'+boardId+'"]');
+    const meta = BOARDS[boardId];
+    const loginNeeded = panel.querySelector(".board-login-needed");
+    const writeArea = panel.querySelector(".board-write");
+    const listEl = panel.querySelector(".notice-list");
+    const emptyEl = panel.querySelector(".board-empty");
+
+    const needsLogin = !meta.publicRead && !currentUser;
+    loginNeeded.style.display = needsLogin ? "" : "none";
+    if(needsLogin){ listEl.innerHTML=""; emptyEl.style.display="none"; writeArea.style.display="none"; return; }
+
+    writeArea.style.display = canWrite(boardId) ? "" : "none";
+    listEl.innerHTML = "";
+
+    let snap;
+    try{
+      if(meta.collection==="notices"){
+        snap = await getDocs(query(collection(db,"notices"), orderBy("createdAt","desc")));
+      }else{
+        snap = await getDocs(query(collection(db,"posts"), where("board","==",meta.filterBoard), orderBy("createdAt","desc")));
+      }
+    }catch(e){
+      emptyEl.textContent = "게시글을 불러오지 못했습니다.";
+      emptyEl.style.display = "block";
+      return;
+    }
+    if(snap.empty){
+      emptyEl.textContent = "아직 등록된 글이 없습니다.";
+      emptyEl.style.display = "block";
+      return;
+    }
+    emptyEl.style.display = "none";
+    snap.forEach(function(d){
+      const p = d.data();
+      const el = document.createElement("div");
+      el.className = "notice-item";
+      el.innerHTML =
+        '<div class="notice-head"><strong>'+esc(p.title)+'</strong><span>'+esc(p.authorName||"")+' · '+fmt(p.createdAt)+'</span></div>'+
+        '<p>'+esc(p.body).replace(/\n/g,"<br>")+'</p>';
+      if(canWrite(boardId)){
+        const delBtn = document.createElement("button");
+        delBtn.type = "button";
+        delBtn.className = "btn-mini reject";
+        delBtn.style.marginTop = "10px";
+        delBtn.textContent = "삭제";
+        delBtn.addEventListener("click", async function(){
+          if(!confirm("이 글을 삭제할까요?")) return;
+          await deleteDoc(doc(db, meta.collection, d.id));
+          renderBoard(boardId);
+        });
+        el.appendChild(delBtn);
+      }
+      listEl.appendChild(el);
+    });
+  }
+
+  function switchTab(boardId){
+    activeBoard = boardId;
+    document.querySelectorAll("#boardTabs button").forEach(function(b){ b.classList.toggle("active", b.dataset.board===boardId); });
+    document.querySelectorAll(".board-panel").forEach(function(p){ p.style.display = (p.dataset.board===boardId)? "" : "none"; });
+    renderBoard(boardId);
+  }
+
+  document.querySelectorAll("#boardTabs button").forEach(function(btn){
+    btn.addEventListener("click", function(){ switchTab(btn.dataset.board); });
+  });
+
+  document.querySelectorAll(".board-write").forEach(function(form){
+    form.addEventListener("submit", async function(e){
+      e.preventDefault();
+      const boardId = form.closest(".board-panel").dataset.board;
+      const meta = BOARDS[boardId];
+      const titleInput = form.querySelector(".pt");
+      const bodyInput = form.querySelector(".pb");
+      const msgEl = form.querySelector(".board-msg");
+      const title = titleInput.value.trim();
+      const body = bodyInput.value.trim();
+      if(!title || !body){
+        msgEl.textContent = "제목과 내용을 입력해 주세요.";
+        msgEl.className = "board-msg auth-msg err"; msgEl.style.display = "block";
+        return;
+      }
+      const payload = { title:title, body:body, authorName: (currentData && currentData.name) || currentUser.email, authorUid: currentUser.uid, createdAt: serverTimestamp() };
+      if(meta.collection==="posts") payload.board = meta.filterBoard;
+      try{
+        await addDoc(collection(db, meta.collection), payload);
+        titleInput.value=""; bodyInput.value="";
+        msgEl.style.display = "none";
+        renderBoard(boardId);
+      }catch(err){
+        msgEl.textContent = "등록 실패: "+(err.code||err.message);
+        msgEl.className = "board-msg auth-msg err"; msgEl.style.display = "block";
+      }
+    });
+  });
+
+  onAuthStateChanged(auth, async function(user){
+    currentUser = user;
+    if(user){
+      const snap = await getDoc(doc(db,"users",user.uid));
+      currentData = snap.exists() ? snap.data() : {};
+    }else{
+      currentData = null;
+    }
+    $("loading").style.display = "none";
+    $("boardArea").style.display = "";
+    switchTab(activeBoard);
+  });
+</script>
+</body>
+</html>

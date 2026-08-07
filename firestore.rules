@@ -10,6 +10,18 @@ service cloud.firestore {
       return exists(/databases/$(database)/documents/settings/general)
              && get(/databases/$(database)/documents/settings/general).data.autoApprove == true;
     }
+    // 게시판 쓰기 권한: 관리자·목사는 모든 게시판, 집사는 교회소식(성별무관)·남/여전도회(성별일치), 청년은 청년회
+    function myRole() { return signedIn() ? me().role : null; }
+    function myGender() { return signedIn() ? me().gender : null; }
+    function canWriteNotice() {
+      return isAdmin() || myRole() == '목사' || myRole() == '집사';
+    }
+    function canWritePost(board) {
+      return isAdmin() || myRole() == '목사'
+             || (board == 'men' && myRole() == '집사' && myGender() == 'M')
+             || (board == 'women' && myRole() == '집사' && myGender() == 'F')
+             || (board == 'youth' && myRole() == '청년');
+    }
 
     // 회원 정보
     match /users/{uid} {
@@ -29,10 +41,20 @@ service cloud.firestore {
       allow delete: if isAdmin() || (signedIn() && request.auth.uid == uid);
     }
 
-    // 공지사항
+    // 교회소식 (누구나 열람 가능, 쓰기는 관리자·목사·집사)
     match /notices/{id} {
-      allow read: if isApproved() || isAdmin();   // 승인된 회원만 열람
-      allow create, update, delete: if isAdmin(); // 등록은 관리자만
+      allow read: if true;
+      allow create: if signedIn() && canWriteNotice()
+                    && request.resource.data.authorUid == request.auth.uid;
+      allow update, delete: if signedIn() && canWriteNotice();
+    }
+
+    // 남전도회·여전도회·청년회 게시판 (열람은 가입한 회원 누구나, 쓰기는 직분에 따라 제한)
+    match /posts/{id} {
+      allow read: if signedIn();
+      allow create: if signedIn() && canWritePost(request.resource.data.board)
+                    && request.resource.data.authorUid == request.auth.uid;
+      allow update, delete: if signedIn() && canWritePost(resource.data.board);
     }
 
     // 휴대폰 번호 중복 가입 방지용 마커 (소유자 또는 관리자만 해제 가능 — 번호 변경·탈퇴·관리자 수정 시 사용)
