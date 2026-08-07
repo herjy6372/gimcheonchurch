@@ -281,6 +281,13 @@
     renderBoard(boardId);
   }
 
+  // 게시판 페이지 안에서 상단 메뉴의 다른 게시판 링크(board.html#xxx)를 클릭하면
+  // 페이지가 다시 로드되지 않고 해시만 바뀌므로, hashchange를 감지해서 탭을 전환한다.
+  window.addEventListener("hashchange", function(){
+    const h = location.hash.replace("#","");
+    switchTab(BOARDS[h] ? h : "notice");
+  });
+
   document.querySelectorAll("#boardTabs button").forEach(function(btn){
     btn.addEventListener("click", function(){ switchTab(btn.dataset.board); });
   });

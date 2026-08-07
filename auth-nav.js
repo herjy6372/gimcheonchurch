@@ -10,5 +10,6 @@ if (el) {
     } else {
       el.innerHTML = '<a href="login.html">로그인</a>';
     }
+    el.style.visibility = "visible";
   });
 }

@@ -44,6 +44,7 @@ header.site{
 .brand .title{font-size:31px;font-weight:800;color:var(--navy);letter-spacing:-1.2px;line-height:1;}
 .brand .sub{font-size:9.5px;color:var(--muted);letter-spacing:.4px;line-height:1;margin-top:6px;}
 nav ul{display:flex;gap:6px;list-style:none;}
+#navAuth{visibility:hidden;} /* 로그인 상태 확인 전까지는 숨겨서 로그인↔전용공간 깜빡임 방지 */
 nav a{
   display:block;padding:9px 16px;border-radius:999px;
   font-weight:600;font-size:15px;color:var(--navy);transition:.2s;
