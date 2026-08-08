@@ -227,6 +227,13 @@ section.block{padding:74px 0;}
 /* 연도별 전시 (실제 사진) */
 .year-block{margin-top:8px;}
 .year-block + .year-block{margin-top:20px;}
+.scan-notice{
+  display:flex;align-items:baseline;gap:8px;
+  background:var(--cream);border:1px solid var(--line);border-radius:10px;
+  padding:12px 16px;margin-bottom:24px;
+  font-size:13px;color:var(--muted);line-height:1.6;
+}
+.scan-notice strong{flex:none;color:var(--gold);font-weight:800;}
 .event{margin-bottom:48px;}
 .event:last-child{margin-bottom:0;}
 .event-title{
