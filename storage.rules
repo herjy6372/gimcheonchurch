@@ -14,6 +14,9 @@ service firebase.storage {
              || (board == 'women' && myRole() == '집사' && myGender() == 'F')
              || (board == 'youth' && myRole() == '청년');
     }
+    function canWriteNotice() {
+      return isAdmin() || myRole() == '목사' || myRole() == '집사';
+    }
 
     // 게시판(남전도회/여전도회/청년회) 첨부 이미지
     match /posts/{board}/{postKey}/{fileName} {
@@ -22,6 +25,15 @@ service firebase.storage {
                    && request.resource.size < 15 * 1024 * 1024
                    && request.resource.contentType.matches('image/.*');
       allow delete: if signedIn() && canWritePost(board);
+    }
+
+    // 교회소식 첨부 이미지
+    match /notices/{postKey}/{fileName} {
+      allow read: if true;
+      allow write: if signedIn() && canWriteNotice()
+                   && request.resource.size < 15 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+      allow delete: if signedIn() && canWriteNotice();
     }
   }
 }
