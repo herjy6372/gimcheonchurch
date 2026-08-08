@@ -1,0 +1,27 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function signedIn() { return request.auth != null; }
+    // Firestore의 users/{uid} 문서를 참조해 직분·성별을 확인 (firestore.rules와 동일한 판단 기준)
+    function me() { return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data; }
+    function myRole() { return signedIn() ? me().role : null; }
+    function myGender() { return signedIn() ? me().gender : null; }
+    function isAdmin() { return signedIn() && me().admin == true; }
+    function canWritePost(board) {
+      return isAdmin() || myRole() == '목사'
+             || (board == 'men' && myRole() == '집사' && myGender() == 'M')
+             || (board == 'women' && myRole() == '집사' && myGender() == 'F')
+             || (board == 'youth' && myRole() == '청년');
+    }
+
+    // 게시판(남전도회/여전도회/청년회) 첨부 이미지
+    match /posts/{board}/{postKey}/{fileName} {
+      allow read: if signedIn();
+      allow write: if signedIn() && canWritePost(board)
+                   && request.resource.size < 15 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+      allow delete: if signedIn() && canWritePost(board);
+    }
+  }
+}
