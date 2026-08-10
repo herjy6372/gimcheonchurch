@@ -25,10 +25,6 @@
         <li><a href="index.html">메인</a></li>
         <li><a href="newfamily.html">새가족안내</a></li>
         <li><a href="album.html">앨범</a></li>
-        <li><a href="board.html#notice">교회소식</a></li>
-        <li><a href="board.html#men">남전도회</a></li>
-        <li><a href="board.html#women">여전도회</a></li>
-        <li><a href="board.html#youth">청년회</a></li>
         <li><a href="member.html">전용공간</a></li>
         <li id="navAuth"><a href="login.html">로그인</a></li>
       </ul>
@@ -95,15 +91,6 @@
       </h2>
       <div id="pendingList" class="admin-list"></div>
       <p id="pendingEmpty" class="album-empty" style="display:none;">승인 대기 중인 회원이 없습니다.</p>
-
-      <!-- 공지 작성 -->
-      <h2 class="member-h2" style="margin-top:44px;">공지 등록</h2>
-      <div class="notice-form">
-        <div id="msg" class="auth-msg" style="display:none;"></div>
-        <div class="field"><label for="nt">제목</label><input id="nt" type="text" placeholder="공지 제목"></div>
-        <div class="field"><label for="nb">내용</label><textarea id="nb" rows="4" placeholder="공지 내용"></textarea></div>
-        <button class="btn-full btn-navy" id="postBtn" style="max-width:200px;">공지 올리기</button>
-      </div>
 
       <!-- 전체 회원 -->
       <h2 class="member-h2" style="margin-top:44px;">전체 회원</h2>
@@ -316,17 +303,6 @@
   }
 
   let myName = "";
-
-  $("postBtn").addEventListener("click", async ()=>{
-    const t=$("nt").value.trim(), b=$("nb").value.trim();
-    const msg=$("msg");
-    if(!t||!b){ msg.textContent="제목과 내용을 입력해 주세요."; msg.className="auth-msg err"; msg.style.display="block"; return; }
-    try{
-      await addDoc(collection(db,"notices"), { title:t, body:b, authorName:myName, authorUid:auth.currentUser.uid, createdAt:serverTimestamp() });
-      $("nt").value=""; $("nb").value="";
-      msg.textContent="공지가 등록되었습니다."; msg.className="auth-msg ok"; msg.style.display="block";
-    }catch(e){ msg.textContent="등록 실패: "+e.message; msg.className="auth-msg err"; msg.style.display="block"; }
-  });
 
   onAuthStateChanged(auth, async (user)=>{
     if(!user){ location.href="login.html"; return; }

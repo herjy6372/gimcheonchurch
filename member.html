@@ -27,10 +27,6 @@
         <li><a href="intro.html">소개</a></li>
         <li><a href="history.html">연혁</a></li>
         <li><a href="album.html">앨범</a></li>
-        <li><a href="board.html#notice">교회소식</a></li>
-        <li><a href="board.html#men">남전도회</a></li>
-        <li><a href="board.html#women">여전도회</a></li>
-        <li><a href="board.html#youth">청년회</a></li>
         <li id="navAuth"><a href="member.html" class="active">전용공간</a></li>
       </ul>
     </nav>
@@ -70,9 +66,7 @@
         </div>
       </div>
 
-      <h2 class="member-h2">📢 교회 소식 · 공지</h2>
-      <div id="notices" class="notice-list"></div>
-      <p id="noticeEmpty" class="album-empty" style="display:none;">아직 등록된 공지가 없습니다.</p>
+      <p class="album-empty" style="margin-top:10px;">로그인이 완료되었습니다. 교인 전용 공간입니다.</p>
     </div>
 
   </div>
@@ -95,32 +89,13 @@
   import { auth, db } from "./firebase-init.js";
   import { onAuthStateChanged, signOut }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import { doc, getDoc, collection, query, orderBy, getDocs }
+  import { doc, getDoc }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const $ = (id)=>document.getElementById(id);
   function logout(){ signOut(auth).then(()=>location.href="index.html"); }
   $("logoutBtn1").addEventListener("click", logout);
   $("logoutBtn2").addEventListener("click", logout);
-
-  function esc(s){ return (s||"").replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
-  function fmt(ts){ try{ return ts.toDate().toLocaleDateString("ko-KR"); }catch(e){ return ""; } }
-
-  async function loadNotices(){
-    const box=$("notices");
-    try{
-      const snap = await getDocs(query(collection(db,"notices"), orderBy("createdAt","desc")));
-      if(snap.empty){ $("noticeEmpty").style.display="block"; return; }
-      snap.forEach(d=>{
-        const n=d.data();
-        const el=document.createElement("div");
-        el.className="notice-item";
-        el.innerHTML='<div class="notice-head"><strong>'+esc(n.title)+'</strong><span>'+fmt(n.createdAt)+'</span></div>'+
-                     '<p>'+esc(n.body).replace(/\n/g,"<br>")+'</p>';
-        box.appendChild(el);
-      });
-    }catch(e){ $("noticeEmpty").textContent="공지를 불러오지 못했습니다."; $("noticeEmpty").style.display="block"; }
-  }
 
   onAuthStateChanged(auth, async (user)=>{
     if(!user){ location.href="login.html"; return; }
@@ -132,7 +107,6 @@
       $("who").textContent = data.name || user.displayName || user.email;
       if(data.admin) $("adminLink").style.display="";
       $("content").style.display="";
-      loadNotices();
     }else{
       $("pending").style.display="";
     }
