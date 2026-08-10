@@ -2356,7 +2356,7 @@
       if(!user){ $("albumLoginNeeded").style.display=""; return; }
       const snap = await getDoc(doc(db,"users",user.uid));
       const data = snap.exists()? snap.data() : {approved:false, admin:false};
-      if(!data.birth || !data.phone){ location.href="profile.html"; return; }
+      if(!data.birth || !data.phone){ location.href="member.html"; return; }
       if(data.admin){
         $("albumContent").style.display="";
         return;

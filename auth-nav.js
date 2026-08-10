@@ -6,7 +6,7 @@ const el = document.getElementById("navAuth");
 if (el) {
   onAuthStateChanged(auth, function (user) {
     if (user) {
-      el.innerHTML = '<a href="member.html">전용공간</a>';
+      el.innerHTML = '<a href="member.html">마이페이지</a>';
     } else {
       el.innerHTML = '<a href="login.html">로그인</a>';
     }

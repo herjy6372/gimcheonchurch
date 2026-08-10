@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>교인 전용공간 · 김천침례교회</title>
-<meta name="description" content="김천침례교회 교인 전용공간.">
+<title>마이페이지 · 김천침례교회</title>
+<meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%AA%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -27,7 +27,7 @@
         <li><a href="intro.html">소개</a></li>
         <li><a href="history.html">연혁</a></li>
         <li><a href="album.html">앨범</a></li>
-        <li id="navAuth"><a href="member.html" class="active">전용공간</a></li>
+        <li id="navAuth"><a href="member.html" class="active">마이페이지</a></li>
       </ul>
     </nav>
   </div>
@@ -35,38 +35,78 @@
 
 <section class="page-hero">
   <div class="wrap">
-    <span class="eyebrow">Members</span>
-    <h1>교인 전용공간</h1>
+    <span class="eyebrow">My Page</span>
+    <h1>마이페이지</h1>
     <div class="rule"></div>
   </div>
 </section>
 
 <section class="block">
-  <div class="wrap" style="max-width:820px;">
+  <div class="wrap" style="max-width:560px;">
 
-    <!-- 로딩 -->
     <div id="loading" class="member-state">불러오는 중…</div>
 
-    <!-- 승인 대기 -->
-    <div id="pending" class="member-state" style="display:none;">
-      <div class="state-ico">⏳</div>
-      <h2>승인 대기 중입니다</h2>
-      <p>가입해 주셔서 감사합니다.<br>관리자(교회)의 승인이 완료되면 교인 전용 콘텐츠를 보실 수 있습니다.</p>
-      <button class="btn-full btn-navy" style="max-width:220px;margin:22px auto 0;" id="logoutBtn1">로그아웃</button>
-    </div>
-
-    <!-- 승인 회원 콘텐츠 -->
     <div id="content" style="display:none;">
       <div class="member-top">
         <p class="welcome">👋 <strong id="who"></strong>님, 환영합니다.</p>
-        <div class="member-actions">
-          <a href="admin.html" id="adminLink" class="btn-outline" style="display:none;">관리자</a>
-          <a href="profile.html" class="btn-outline">정보수정</a>
-          <button class="btn-outline" id="logoutBtn2">로그아웃</button>
+        <button class="btn-outline" id="logoutBtn">로그아웃</button>
+      </div>
+
+      <!-- 승인 상태 안내 -->
+      <div id="pendingBanner" class="auth-msg err" style="display:none;">
+        ⏳ 승인 대기 중입니다. 관리자 승인이 완료되면 앨범 등 교인 전용 콘텐츠를 이용하실 수 있습니다.
+      </div>
+
+      <!-- 관리자 기능 (관리자에게만 표시) -->
+      <div id="adminBox" style="display:none;">
+        <h2 class="member-h2">🛠️ 관리자 기능</h2>
+        <div class="notice-form" style="margin-bottom:34px;">
+          <p style="color:#555;font-size:14.5px;margin-bottom:16px;line-height:1.6;">
+            회원 <strong>승인/거절</strong>, 교인 <strong>등급(직분) 지정</strong>, 자동승인 모드·앨범 공개 범위 설정을 하실 수 있습니다.
+          </p>
+          <a href="admin.html" class="btn-full btn-navy" style="max-width:300px;margin:0;">회원 승인 · 교인 등급 관리 →</a>
         </div>
       </div>
 
-      <p class="album-empty" style="margin-top:10px;">로그인이 완료되었습니다. 교인 전용 공간입니다.</p>
+      <!-- 개인정보 수정 -->
+      <h2 class="member-h2">개인정보 수정</h2>
+      <div id="requiredNotice" class="auth-msg err" style="display:none;margin-bottom:18px;">
+        승인 심사 및 앨범 열람을 위해 <strong>생년월일</strong>과 <strong>휴대폰 번호</strong> 입력이 꼭 필요합니다.
+      </div>
+      <div id="msg" class="auth-msg" style="display:none;"></div>
+
+      <form id="profileForm">
+        <div class="field">
+          <label for="name">이름</label>
+          <input id="name" type="text" placeholder="성함을 입력하세요" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label>생년월일</label>
+          <div class="birth-row">
+            <select id="birthYear" required></select>
+            <select id="birthMonth" required></select>
+            <select id="birthDay" required></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="gender">성별</label>
+          <select id="gender" required>
+            <option value="" disabled>선택해 주세요</option>
+            <option value="M">남</option>
+            <option value="F">여</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="phone">휴대폰 번호</label>
+          <input id="phone" type="tel" placeholder="01012345678" autocomplete="tel" inputmode="numeric" required>
+        </div>
+        <button type="submit" class="btn-full btn-navy" id="saveBtn">저장하기</button>
+      </form>
+
+      <div style="margin-top:36px;padding-top:20px;border-top:1px solid var(--line);text-align:center;">
+        <button type="button" id="withdrawBtn" class="btn-outline" style="color:#a3452f;border-color:#e3c9c0;">회원 탈퇴</button>
+        <p style="font-size:12px;color:#999;margin-top:8px;">탈퇴하면 가입 정보가 모두 삭제되며 되돌릴 수 없습니다.</p>
+      </div>
     </div>
 
   </div>
@@ -87,28 +127,100 @@
 <script type="module" src="auth-nav.js"></script>
 <script type="module">
   import { auth, db } from "./firebase-init.js";
-  import { onAuthStateChanged, signOut }
+  import { onAuthStateChanged, signOut, updateProfile, deleteUser }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import { doc, getDoc }
+  import { doc, getDoc, updateDoc, setDoc, deleteDoc, serverTimestamp }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const $ = (id)=>document.getElementById(id);
-  function logout(){ signOut(auth).then(()=>location.href="index.html"); }
-  $("logoutBtn1").addEventListener("click", logout);
-  $("logoutBtn2").addEventListener("click", logout);
+  const msg = $("msg");
+  function show(text, ok){ msg.textContent=text; msg.className="auth-msg "+(ok?"ok":"err"); msg.style.display="block"; msg.scrollIntoView({block:"nearest"}); }
+
+  $("logoutBtn").addEventListener("click", ()=>signOut(auth).then(()=>location.href="index.html"));
+
+  const PHONE_PATTERN = /^01[0-9]{8,9}$/;
+  function normalizePhone(v){ return (v||"").replace(/\D/g,""); }
+  async function isPhoneTaken(phone){
+    const snap = await getDoc(doc(db,"phoneNumbers",phone));
+    return snap.exists();
+  }
+
+  let currentUser=null, currentData=null;
 
   onAuthStateChanged(auth, async (user)=>{
     if(!user){ location.href="login.html"; return; }
+    currentUser = user;
     const snap = await getDoc(doc(db,"users",user.uid));
-    const data = snap.exists()? snap.data() : {approved:false, admin:false};
-    if(!data.birth || !data.phone){ location.href="profile.html"; return; }
-    $("loading").style.display="none";
-    if(data.approved){
-      $("who").textContent = data.name || user.displayName || user.email;
-      if(data.admin) $("adminLink").style.display="";
-      $("content").style.display="";
-    }else{
-      $("pending").style.display="";
+    currentData = snap.exists()? snap.data() : {};
+
+    $("who").textContent = currentData.name || user.displayName || user.email;
+    $("name").value = currentData.name || user.displayName || "";
+    fillBirthSelects($("birthYear"), $("birthMonth"), $("birthDay"), currentData.birth || "");
+    $("gender").value = currentData.gender || "";
+    $("phone").value = currentData.phone || "";
+
+    if(currentData.admin) $("adminBox").style.display = "";
+    if(!currentData.approved) $("pendingBanner").style.display = "";
+    if(!currentData.birth || !currentData.phone) $("requiredNotice").style.display = "";
+
+    $("loading").style.display = "none";
+    $("content").style.display = "";
+  });
+
+  document.getElementById("profileForm").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const name=$("name").value.trim();
+    const birth=readBirthValue($("birthYear"), $("birthMonth"), $("birthDay"));
+    const gender=$("gender").value;
+    const phone=normalizePhone($("phone").value);
+
+    if(!birth){ show("생년월일을 선택해 주세요.", false); return; }
+    if(!gender){ show("성별을 선택해 주세요.", false); return; }
+    if(!PHONE_PATTERN.test(phone)){ show("휴대폰 번호 형식이 올바르지 않습니다. (예: 01012345678)", false); return; }
+
+    const oldPhone = currentData.phone || "";
+    try{
+      if(phone !== oldPhone){
+        if(await isPhoneTaken(phone)){ show("이미 등록된 휴대폰 번호입니다.", false); return; }
+        await setDoc(doc(db,"phoneNumbers",phone), { uid: currentUser.uid, createdAt: serverTimestamp() });
+        if(oldPhone){
+          try{ await deleteDoc(doc(db,"phoneNumbers",oldPhone)); }catch(e){ /* 예전 번호 해제 실패는 무시 */ }
+        }
+      }
+      await updateDoc(doc(db,"users",currentUser.uid), { name, birth, gender, phone });
+      if(name) await updateProfile(currentUser, { displayName:name });
+      currentData = Object.assign({}, currentData, { name, birth, gender, phone });
+      $("requiredNotice").style.display = "none";
+      $("who").textContent = name || currentUser.email;
+      show("저장되었습니다.", true);
+    }catch(err){
+      show("저장 중 오류가 발생했습니다. ("+(err.code||err.message)+")", false);
+    }
+  });
+
+  $("withdrawBtn").addEventListener("click", async ()=>{
+    if(!confirm("정말 탈퇴하시겠습니까?\n가입 정보가 모두 삭제되며 되돌릴 수 없습니다.")) return;
+    const lastSignIn = (currentUser.metadata && currentUser.metadata.lastSignInTime) ? new Date(currentUser.metadata.lastSignInTime).getTime() : 0;
+    if(Date.now() - lastSignIn > 4*60*1000){
+      show("보안을 위해 재로그인이 필요합니다. 로그아웃 후 다시 로그인한 뒤 곧바로 탈퇴를 진행해 주세요.", false);
+      return;
+    }
+    $("withdrawBtn").disabled = true;
+    try{
+      if(currentData.phone){
+        try{ await deleteDoc(doc(db,"phoneNumbers",currentData.phone)); }catch(e){ /* 무시 */ }
+      }
+      await deleteDoc(doc(db,"users",currentUser.uid));
+      await deleteUser(currentUser);
+      alert("탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.");
+      location.href = "index.html";
+    }catch(err){
+      $("withdrawBtn").disabled = false;
+      if(err.code === "auth/requires-recent-login"){
+        show("가입 정보는 삭제되었습니다. 로그인 계정을 마저 삭제하려면 로그아웃 후 다시 로그인한 뒤 탈퇴를 한 번 더 눌러주세요.", false);
+      }else{
+        show("탈퇴 중 오류가 발생했습니다. ("+(err.code||err.message)+")", false);
+      }
     }
   });
 </script>
