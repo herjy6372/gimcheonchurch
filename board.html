@@ -206,6 +206,13 @@
   const $ = (id)=>document.getElementById(id);
   function esc(s){ return (s||"").replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
   function fmt(ts){ try{ return ts.toDate().toLocaleDateString("ko-KR"); }catch(e){ return ""; } }
+  // 지정 시간 내 완료되지 않으면 실패 처리 (예: Storage 미설정으로 업로드가 무한 대기하는 경우)
+  function withTimeout(promise, ms, message){
+    return Promise.race([
+      promise,
+      new Promise((_, reject)=>setTimeout(()=>reject(new Error(message||"TIMEOUT")), ms))
+    ]);
+  }
 
   const BOARDS = {
     notice: { label:"교회소식", collection:"notices", publicRead:true },
@@ -443,8 +450,8 @@
               ? "notices/"+uploadKey+"/"+(i+1)+".jpg"
               : "posts/"+meta.filterBoard+"/"+uploadKey+"/"+(i+1)+".jpg";
             const sref = ref(storage, path);
-            await uploadBytes(sref, blob, { contentType:"image/jpeg" });
-            const url = await getDownloadURL(sref);
+            await withTimeout(uploadBytes(sref, blob, { contentType:"image/jpeg" }), 25000, "STORAGE_TIMEOUT");
+            const url = await withTimeout(getDownloadURL(sref), 15000, "STORAGE_TIMEOUT");
             images.push({ url:url, path:path });
           }
           progressEl.style.display = "none";
@@ -459,7 +466,12 @@
         renderBoard(boardId);
       }catch(err){
         progressEl.style.display = "none";
-        msgEl.textContent = "등록 실패: "+(err.code||err.message);
+        var m = (err && (err.code || err.message)) || "";
+        if(m==="STORAGE_TIMEOUT" || (""+m).indexOf("storage/")===0){
+          msgEl.textContent = "사진 업로드에 실패했습니다. 사진 첨부 기능이 아직 준비 중일 수 있어요. 사진 없이 등록하거나 잠시 후 다시 시도해 주세요.";
+        }else{
+          msgEl.textContent = "등록 실패: " + m;
+        }
         msgEl.className = "board-msg auth-msg err"; msgEl.style.display = "block";
       }
       submitBtn.disabled = false;
