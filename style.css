@@ -91,7 +91,7 @@ section.block{padding:74px 0;}
 .head .rule{width:56px;height:3px;background:var(--gold);margin:18px auto 0;border-radius:2px;}
 
 /* ===== Info cards ===== */
-.info-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:stretch;}
+.info-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start;}
 .church-photo{
   border-radius:var(--radius);overflow:hidden;background:var(--white);
   box-shadow:var(--shadow);border:1px solid var(--line);
@@ -99,6 +99,14 @@ section.block{padding:74px 0;}
   color:var(--muted);text-align:center;position:relative;
 }
 .church-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+/* 메인 영상 (유튜브 플레이어 / 준비중 자리) */
+.church-photo.video-box{min-height:0;padding:0;display:block;}
+.video-embed{position:relative;width:100%;aspect-ratio:16/9;background:#0f1f36;}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;}
+.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;background:linear-gradient(135deg,#1f3a5f,#0f1f36);color:#aebcd0;}
+.video-placeholder .vp-ico{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:22px;color:#fff;margin-bottom:6px;padding-left:4px;}
+.video-placeholder strong{font-size:17px;color:#fff;letter-spacing:-.3px;}
+.video-placeholder small{font-size:13px;color:#aebcd0;}
 .church-photo .ph-inner{padding:30px;}
 .church-photo .ico{font-size:52px;margin-bottom:10px;opacity:.5;}
 .church-photo small{display:block;margin-top:6px;font-size:12px;color:#9a9a9a;}
