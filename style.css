@@ -174,6 +174,8 @@ section.block{padding:74px 0;}
 .pastor-gen{display:inline-block;background:var(--navy);color:#fff;font-weight:800;font-size:12px;letter-spacing:.5px;padding:3px 11px;border-radius:999px;margin-top:14px;}
 .pastor-name{color:var(--navy);font-size:16.5px;font-weight:800;margin-top:7px;letter-spacing:-.3px;}
 .pastor-current{background:var(--gold);}
+.pastor-photo.no-photo{display:flex;align-items:center;justify-content:center;color:#b0a893;font-size:13px;font-weight:600;text-align:center;line-height:1.5;background:repeating-linear-gradient(45deg,#f3efe6,#f3efe6 10px,#efeade 10px,#efeade 20px);}
+.pastor-term{color:var(--muted);font-size:11.5px;margin-top:5px;letter-spacing:-.2px;}
 
 /* ===== History timeline ===== */
 .timeline{max-width:760px;margin-inline:auto;position:relative;padding-left:30px;}
