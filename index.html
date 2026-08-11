@@ -57,14 +57,28 @@
     </div>
 
     <div class="info-grid">
-      <!-- 75주년 창립기념 영상 (유튜브: https://youtu.be/LI06EidsijU) -->
+      <!-- 75주년 창립기념 영상 (유튜브: https://youtu.be/LI06EidsijU)
+           2026-08-16 오전 8시(KST)에 자동으로 플레이어가 나타납니다. 그 전까지는 "공개 예정" 안내 표시. -->
       <div class="church-photo video-box">
-        <div class="video-embed">
-          <iframe src="https://www.youtube-nocookie.com/embed/LI06EidsijU" title="75주년 창립기념 영상"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+        <div class="video-embed" id="videoEmbed"
+             data-yt="LI06EidsijU" data-reveal="2026-08-16T08:00:00+09:00">
+          <div class="video-placeholder">
+            <div class="vp-ico">▶</div>
+            <strong>75주년 창립기념 영상</strong>
+            <small>8월 16일(토) 오전 8시 공개 예정</small>
+          </div>
         </div>
       </div>
+      <script>
+        (function(){
+          var box=document.getElementById("videoEmbed");
+          if(!box) return;
+          var reveal=new Date(box.dataset.reveal).getTime();
+          if(Date.now()>=reveal){
+            box.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+box.dataset.yt+'" title="75주년 창립기념 영상" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>';
+          }
+        })();
+      </script>
 
       <div class="cards">
         <div class="card">
