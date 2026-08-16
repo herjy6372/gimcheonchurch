@@ -157,8 +157,8 @@
     genderSel.value=u.gender||"";
     const phoneInput=document.createElement("input"); phoneInput.type="tel"; phoneInput.value=u.phone||""; phoneInput.placeholder="01012345678";
     const roleSel=document.createElement("select");
-    roleSel.innerHTML='<option value="">성도</option><option value="집사">집사</option><option value="목사">목사</option><option value="청년">청년</option>';
-    roleSel.value=u.role||"";
+    roleSel.innerHTML='<option value="관리자">관리자</option><option value="목사">목사</option><option value="장로">장로</option><option value="집사">집사</option><option value="성도">성도</option><option value="학생">학생</option><option value="어린이">어린이</option>';
+    roleSel.value = u.admin ? "관리자" : (u.role || "성도");
     const errMsg=document.createElement("div"); errMsg.style.cssText="font-size:12px;color:#a3452f;display:none;";
 
     const btnRow=document.createElement("div"); btnRow.className="admin-btns";
@@ -166,7 +166,7 @@
     const cancelBtn=document.createElement("button"); cancelBtn.className="btn-mini reject"; cancelBtn.textContent="취소";
     btnRow.appendChild(saveBtn); btnRow.appendChild(cancelBtn);
 
-    [field("이름", nameInput), field("생년월일", birthRow), field("성별", genderSel), field("휴대폰 번호", phoneInput), field("직분", roleSel), errMsg, btnRow]
+    [field("이름", nameInput), field("생년월일", birthRow), field("성별", genderSel), field("휴대폰 번호", phoneInput), field("등급(직분)", roleSel), errMsg, btnRow]
       .forEach(el=>panel.appendChild(el));
 
     cancelBtn.onclick=()=>{ panel.style.display="none"; };
@@ -178,6 +178,14 @@
       if(!birth||!gender||!PHONE_PATTERN.test(phone)){
         errMsg.textContent="생년월일·성별·휴대폰번호를 올바르게 입력해 주세요."; errMsg.style.display="block"; return;
       }
+      const newRole = roleSel.value;
+      const wantsAdmin = newRole === "관리자";
+      if(wantsAdmin !== !!u.admin){
+        const confirmMsg = wantsAdmin
+          ? (u.name||"이 회원")+" 님에게 관리자 권한을 부여할까요?\n사이트의 모든 관리 기능(회원 승인, 등급 지정, 설정 변경 등)을 사용할 수 있게 됩니다."
+          : (u.name||"이 회원")+" 님의 관리자 권한을 해제할까요?";
+        if(!confirm(confirmMsg)) return;
+      }
       saveBtn.disabled=true; errMsg.style.display="none";
       const oldPhone=u.phone||"";
       try{
@@ -187,7 +195,7 @@
           await setDoc(doc(db,"phoneNumbers",phone), { uid:u.id, createdAt:serverTimestamp() });
           if(oldPhone){ try{ await deleteDoc(doc(db,"phoneNumbers",oldPhone)); }catch(e){ /* 무시 */ } }
         }
-        await updateDoc(doc(db,"users",u.id), { name, birth, gender, phone, role:roleSel.value });
+        await updateDoc(doc(db,"users",u.id), { name, birth, gender, phone, role:newRole, admin:wantsAdmin });
         loadUsers();
       }catch(err){
         errMsg.textContent="저장 실패: "+(err.code||err.message); errMsg.style.display="block"; saveBtn.disabled=false;
@@ -214,12 +222,12 @@
       const info=document.createElement("div");
       info.innerHTML='<strong>'+esc(u.name||"(이름없음)")+'</strong> '+badge+'<br><span class="email">'+esc(u.email)+'</span>'+extraInfo(u);
       a.appendChild(info);
-      let editPanel=null;
+      const editPanel=buildEditPanel(u);
+      const btns=document.createElement("div"); btns.className="admin-btns";
+      const editBtn=document.createElement("button"); editBtn.className="btn-mini approve"; editBtn.textContent="수정";
+      editBtn.onclick=()=>{ editPanel.style.display = editPanel.style.display==="none"?"flex":"none"; };
+      btns.appendChild(editBtn);
       if(!u.admin){
-        editPanel=buildEditPanel(u);
-        const btns=document.createElement("div"); btns.className="admin-btns";
-        const editBtn=document.createElement("button"); editBtn.className="btn-mini approve"; editBtn.textContent="수정";
-        editBtn.onclick=()=>{ editPanel.style.display = editPanel.style.display==="none"?"flex":"none"; };
         const delBtn=document.createElement("button"); delBtn.className="btn-mini reject"; delBtn.textContent="삭제";
         delBtn.onclick=async()=>{
           if(!confirm((u.name||"이 회원")+" 님을 삭제할까요?\n삭제 후 다시 로그인하면 승인 대기 상태로 새로 시작됩니다."))return;
@@ -228,11 +236,11 @@
           await deleteDoc(doc(db,"users",u.id));
           loadUsers();
         };
-        btns.appendChild(editBtn); btns.appendChild(delBtn);
-        a.appendChild(btns);
+        btns.appendChild(delBtn);
       }
+      a.appendChild(btns);
       all.appendChild(a);
-      if(editPanel) all.appendChild(editPanel);
+      all.appendChild(editPanel);
       // 승인 대기 목록
       if(!u.approved && !u.admin){
         pendingCount++;

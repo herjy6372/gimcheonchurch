@@ -24,18 +24,23 @@ export const storage = getStorage(app);
 // 로그인 상태를 브라우저 탭(세션)에만 저장 — 창(탭)을 닫으면 자동 로그아웃됨
 setPersistence(auth, browserSessionPersistence);
 
-// 10분 이상 아무 조작이 없으면 자동 로그아웃
-(function(){
-  var INACTIVITY_LIMIT_MS = 10 * 60 * 1000;
-  var timer;
-  function resetTimer(){
-    clearTimeout(timer);
-    timer = setTimeout(function(){
-      if(auth.currentUser) signOut(auth);
-    }, INACTIVITY_LIMIT_MS);
-  }
-  ["mousemove","mousedown","keydown","scroll","touchstart"].forEach(function(evt){
-    document.addEventListener(evt, resetTimer, { passive: true });
-  });
-  resetTimer();
-})();
+// 60분 이상 아무 조작이 없으면 자동 로그아웃
+export const INACTIVITY_LIMIT_MS = 60 * 60 * 1000;
+let lastActivity = Date.now();
+let inactivityTimer;
+function resetInactivityClock(){
+  lastActivity = Date.now();
+  clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(function(){
+    if(auth.currentUser) signOut(auth);
+  }, INACTIVITY_LIMIT_MS);
+}
+["mousemove","mousedown","keydown","scroll","touchstart"].forEach(function(evt){
+  document.addEventListener(evt, resetInactivityClock, { passive: true });
+});
+resetInactivityClock();
+
+// 마이페이지 옆 자동 로그아웃 카운트다운 표시용
+export function getInactivityRemainingMs(){
+  return Math.max(0, INACTIVITY_LIMIT_MS - (Date.now() - lastActivity));
+}

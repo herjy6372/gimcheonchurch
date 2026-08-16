@@ -28,10 +28,10 @@ service cloud.firestore {
       // 본인 또는 관리자만 읽기
       allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
       // 가입 시 본인 문서만 생성 가능. 자동승인 모드가 꺼져 있으면 approved는 반드시 false로만 생성 가능(스스로 승인 불가)
-      // 직분(role)도 가입 시점에 스스로 지정할 수 없음(관리자만 나중에 부여)
+      // 등급(role)은 가입 시 기본값 "성도"로만 생성 가능 — 그 외 등급은 관리자만 나중에 부여
       allow create: if signedIn() && request.auth.uid == uid
                     && request.resource.data.admin == false
-                    && !('role' in request.resource.data)
+                    && request.resource.data.role == '성도'
                     && (request.resource.data.approved == false
                         || (request.resource.data.approved == true && autoApproveOn()));
       // 승인/거절/권한변경은 관리자만. 본인은 approved·admin·role 값을 바꾸지 않는 선에서 개인정보 수정 가능

@@ -186,7 +186,7 @@
       await user.delete();
       throw new Error("PHONE_TAKEN");
     }
-    await setDoc(ref, { name:name||user.displayName||"", email:displayEmail||user.email||"", birth:extra.birth, gender:extra.gender, phone:extra.phone, approved:autoApprove, admin:false, createdAt:serverTimestamp() });
+    await setDoc(ref, { name:name||user.displayName||"", email:displayEmail||user.email||"", birth:extra.birth, gender:extra.gender, phone:extra.phone, approved:autoApprove, admin:false, role:"성도", createdAt:serverTimestamp() });
   }
 
   document.getElementById("signupForm").addEventListener("submit", async (e)=>{
