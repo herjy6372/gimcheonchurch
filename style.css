@@ -443,7 +443,6 @@ footer .copy{margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,
 .motto{background:linear-gradient(180deg,#f6efe1,#faf7f1);border-bottom:1px solid var(--line);text-align:center;padding:38px 0 34px;}
 .motto-year{display:inline-block;font-size:13px;font-weight:800;letter-spacing:2px;color:var(--gold);border:1.5px solid var(--gold-soft);border-radius:999px;padding:4px 14px;}
 .motto-text{margin-top:14px;font-size:clamp(22px,3.6vw,32px);font-weight:800;color:var(--navy);letter-spacing:-.5px;line-height:1.4;word-break:keep-all;}
-.motto-ref{display:block;margin-top:8px;font-size:15px;color:var(--muted);font-weight:600;}
 
 /* ===== 성경&찬양 앱 비공개 테스트 ===== */
 .app-beta{background:var(--white);}
