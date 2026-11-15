@@ -94,6 +94,15 @@
       <!-- 전체 회원 -->
       <h2 class="member-h2" style="margin-top:44px;">전체 회원</h2>
       <div id="allList" class="admin-list"></div>
+
+      <!-- 성경&찬양 앱 비공개 테스트 신청 -->
+      <h2 class="member-h2" style="margin-top:44px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+        앱 비공개 테스트 신청
+        <button class="btn-mini approve" id="copyTesterEmailsBtn" style="font-size:13px;">대기 이메일 복사</button>
+      </h2>
+      <p style="margin:-6px 0 14px;font-size:13px;color:#777;">① Play Console → 테스트 → 비공개 테스트 → 테스터 목록에 이메일을 추가합니다. ② '문자'를 눌러 신청자에게 참여 안내 문자를 보냅니다(휴대폰에서는 문자 앱이 열리고, 문자 내용은 복사도 됩니다). ③ '등록 완료'를 누릅니다. 테스트가 끝나면 신청 정보를 삭제해 주세요.</p>
+      <div id="testerList" class="admin-list"></div>
+      <p id="testerEmpty" class="album-empty" style="display:none;">신청 내역이 없습니다.</p>
     </div>
   </div>
 </section>
@@ -309,6 +318,73 @@
     $("albumAccessSelect").value = value;
   }
 
+  // 성경&찬양 앱 비공개 테스트 신청 목록
+  let pendingTesterEmails = [];
+  const TESTER_OPT_IN_URL = "https://play.google.com/apps/testing/com.terablack.churchpraise";
+
+  function testerSmsText(name){
+    return "[김천침례교회] "+(name||"")+"님, 성경&찬양 앱 비공개 테스트에 등록되었습니다.\n"
+      +"아래 링크를 눌러 '테스터 되기'를 선택한 뒤 Play 스토어에서 설치해 주세요. (신청하신 Google 계정으로 로그인된 Android 휴대폰에서 열어 주세요)\n"
+      +TESTER_OPT_IN_URL;
+  }
+
+  function formatDate(ts){
+    if(!ts || !ts.toDate) return "";
+    const d=ts.toDate();
+    return d.getFullYear()+"."+String(d.getMonth()+1).padStart(2,"0")+"."+String(d.getDate()).padStart(2,"0");
+  }
+
+  async function loadTesterRequests(){
+    const list=$("testerList");
+    list.innerHTML="";
+    const snap=await getDocs(collection(db,"testerRequests"));
+    const rows=[];
+    snap.forEach(d=>rows.push({id:d.id, ...d.data()}));
+    // 대기 먼저, 같은 상태끼리는 최근 신청 먼저
+    rows.sort((a,b)=>{
+      if((a.status==="pending")!==(b.status==="pending")) return a.status==="pending"?-1:1;
+      return ((b.createdAt&&b.createdAt.seconds)||0)-((a.createdAt&&a.createdAt.seconds)||0);
+    });
+    pendingTesterEmails = rows.filter(r=>r.status==="pending").map(r=>r.email);
+    $("testerEmpty").style.display = rows.length? "none":"block";
+    rows.forEach(r=>{
+      const item=document.createElement("div"); item.className="admin-item";
+      const badge = r.status==="added" ? '<span class="tag ok">등록 완료</span>' : '<span class="tag wait">대기</span>';
+      const info=document.createElement("div");
+      info.innerHTML='<strong>'+esc(r.name)+'</strong> '+badge+'<br><span class="email">'+esc(r.email)+'</span><br><span class="email">'+esc([r.phone, formatDate(r.createdAt)].filter(Boolean).join(" · "))+'</span>';
+      item.appendChild(info);
+      const btns=document.createElement("div"); btns.className="admin-btns";
+      // 참여 안내 문자 (휴대폰: 문자 앱 열기, 모든 기기: 문자 내용 복사)
+      const sms=document.createElement("a"); sms.className="btn-mini approve"; sms.textContent="문자";
+      sms.style.cssText="display:inline-block;margin-right:8px;";
+      const smsText=testerSmsText(r.name);
+      sms.href="sms:"+encodeURIComponent(r.phone||"")+"?body="+encodeURIComponent(smsText);
+      sms.onclick=()=>{ try{ navigator.clipboard.writeText(smsText); }catch(e){ /* 무시 */ } };
+      btns.appendChild(sms);
+      if(r.status!=="added"){
+        const done=document.createElement("button"); done.className="btn-mini approve"; done.textContent="등록 완료";
+        done.onclick=async()=>{ done.disabled=true; await updateDoc(doc(db,"testerRequests",r.id),{status:"added"}); loadTesterRequests(); };
+        btns.appendChild(done);
+      }
+      const del=document.createElement("button"); del.className="btn-mini reject"; del.textContent="삭제";
+      del.onclick=async()=>{ if(!confirm((r.name||"이 신청")+" 님의 신청 정보를 삭제할까요?")) return; del.disabled=true; await deleteDoc(doc(db,"testerRequests",r.id)); loadTesterRequests(); };
+      btns.appendChild(del);
+      item.appendChild(btns);
+      list.appendChild(item);
+    });
+  }
+
+  $("copyTesterEmailsBtn").addEventListener("click", async ()=>{
+    if(!pendingTesterEmails.length){ alert("등록 대기 중인 신청이 없습니다."); return; }
+    const text = pendingTesterEmails.join(", ");
+    try{
+      await navigator.clipboard.writeText(text);
+      alert(pendingTesterEmails.length+"개 이메일을 복사했습니다.\nPlay Console 테스터 목록에 붙여넣으세요.");
+    }catch(e){
+      prompt("아래 이메일을 복사하세요.", text);
+    }
+  });
+
   let myName = "";
 
   onAuthStateChanged(auth, async (user)=>{
@@ -324,6 +400,7 @@
       loadUsers();
       loadAutoApprove();
       loadAlbumAccess();
+      loadTesterRequests();
     }else{
       $("denied").style.display="";
     }

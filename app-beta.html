@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>성경&amp;찬양 앱 비공개 테스트 · 김천침례교회</title>
+<meta name="description" content="김천침례교회 성경&amp;찬양 앱 Android 비공개 테스트 신청">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%AA%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="index.html" class="brand">
+      <span class="mark">✝</span>
+      <span>
+        <span class="title">김천침례교회</span><br>
+        <span class="sub">GIMCHEON BAPTIST CHURCH · SINCE 1951</span>
+      </span>
+    </a>
+    <nav>
+      <button class="menu-btn" aria-label="메뉴" onclick="toggleMenu()">☰</button>
+      <ul id="menu">
+        <li><a href="index.html">메인</a></li>
+        <li><a href="newfamily.html">새가족안내</a></li>
+        <li><a href="intro.html">소개</a></li>
+        <li><a href="history.html">연혁</a></li>
+        <li><a href="album.html">앨범</a></li>
+        <li id="navAuth"><a href="login.html">로그인</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Mobile App</span>
+    <h1>성경&amp;찬양 앱 비공개 테스트</h1>
+    <div class="rule"></div>
+  </div>
+</section>
+
+<section class="block app-beta">
+  <div class="wrap">
+    <div class="beta-grid">
+      <div class="beta-info">
+        <h3>예배와 찬양을 한 앱에서</h3>
+        <ul class="beta-features">
+          <li>📖 성경 — 개역개정 · 개역한글 · KJV</li>
+          <li>🎵 새찬송가 645곡 악보 · YouTube 연결</li>
+          <li>🙏 교독문 · 주기도문</li>
+          <li>📝 콘티 · 즐겨찾기 · 악보 필기</li>
+        </ul>
+        <div class="beta-notice">
+          <strong>Android(안드로이드) 휴대폰만 참여할 수 있습니다.</strong>
+          <p>정식 출시 전 Google Play 비공개 테스트로 먼저 사용해 보실 분을 모집합니다. 아이폰은 아직 지원하지 않습니다.</p>
+        </div>
+        <ol class="beta-steps">
+          <li><span>1</span><p>신청서를 작성하고 <b>테스트 참여하기</b>를 누릅니다.</p></li>
+          <li><span>2</span><p>관리자가 신청 내용을 확인한 뒤 테스터로 등록합니다. (1~2일 소요)</p></li>
+          <li><span>3</span><p>입력하신 휴대폰 번호로 <b>참여 안내 문자</b>를 보내드립니다. 문자의 링크로 참여한 뒤 Play 스토어에서 설치하세요.</p></li>
+        </ol>
+      </div>
+
+      <form class="beta-form" id="betaForm" novalidate>
+        <h3>비공개 테스트 신청</h3>
+        <div class="field">
+          <label for="betaEmail">Google 계정(아이디)</label>
+          <input type="email" id="betaEmail" autocomplete="email" placeholder="example@gmail.com" maxlength="100" required>
+          <p class="hint">휴대폰 Play 스토어에 로그인된 Google 계정(Gmail)을 입력해 주세요.</p>
+        </div>
+        <div class="field">
+          <label for="betaName">이름</label>
+          <input type="text" id="betaName" autocomplete="name" placeholder="홍길동" maxlength="30" required>
+        </div>
+        <div class="field">
+          <label for="betaPhone">휴대폰 번호</label>
+          <input type="tel" id="betaPhone" autocomplete="tel" inputmode="numeric" placeholder="01012345678" maxlength="13" required>
+        </div>
+        <div class="beta-consent">
+          <label><input type="checkbox" id="betaConsent"> 개인정보 수집·이용에 동의합니다. (필수)</label>
+          <details>
+            <summary>내용 보기</summary>
+            <ul>
+              <li><b>수집 항목:</b> Google 계정(이메일), 이름, 휴대폰 번호</li>
+              <li><b>이용 목적:</b> 성경&amp;찬양 앱 Google Play 비공개 테스터 등록 및 참여 안내 문자 발송</li>
+              <li><b>보유 기간:</b> 비공개 테스트 종료 시 또는 삭제 요청 시 즉시 파기</li>
+              <li>동의하지 않으실 수 있으며, 이 경우 비공개 테스트에 참여하실 수 없습니다.</li>
+            </ul>
+          </details>
+        </div>
+        <div class="beta-msg" id="betaMsg" role="status" aria-live="polite"></div>
+        <button type="submit" class="btn-full btn-navy" id="betaSubmit">테스트 참여하기</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>김천침례교회</h4>
+        <p>기독교 한국침례회<br>담임목사 정재윤</p>
+      </div>
+      <div>
+        <h4>오시는 길</h4>
+        <p>(39608) 경상북도 김천시 평화동 253<br>경북 김천시 평화12길 20</p>
+      </div>
+      <div>
+        <h4>연락처</h4>
+        <p>휴대전화 : 010-4402-2594</p>
+      </div>
+    </div>
+    <div class="copy">© 1951–2025 김천침례교회 (GIMCHEON BAPTIST CHURCH). All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script type="module" src="auth-nav.js"></script>
+<script type="module">
+  import { db } from "./firebase-init.js";
+  import { doc, setDoc, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const $ = (id)=>document.getElementById(id);
+  const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  const PHONE_PATTERN = /^01[0-9]{8,9}$/;
+
+  function showMsg(text, ok){
+    const m=$("betaMsg");
+    m.textContent=text;
+    m.className="beta-msg "+(ok?"ok":"err");
+  }
+
+  $("betaForm").addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const email=$("betaEmail").value.trim().toLowerCase();
+    const name=$("betaName").value.trim();
+    const phone=$("betaPhone").value.replace(/\D/g,"");
+    if(!EMAIL_PATTERN.test(email) || email.length>100){ showMsg("Google 계정(이메일)을 올바르게 입력해 주세요.", false); return; }
+    if(!name || name.length>30){ showMsg("이름을 입력해 주세요.", false); return; }
+    if(!PHONE_PATTERN.test(phone)){ showMsg("휴대폰 번호를 숫자로 올바르게 입력해 주세요. 예: 01012345678", false); return; }
+    if(!$("betaConsent").checked){ showMsg("개인정보 수집·이용에 동의해 주세요.", false); return; }
+
+    const btn=$("betaSubmit");
+    btn.disabled=true; btn.textContent="신청 중…";
+    try{
+      // 문서 ID를 이메일로 해서 같은 계정은 한 번만 신청되도록 함
+      await setDoc(doc(db,"testerRequests",email), {
+        email, name, phone, consent:true, status:"pending", createdAt:serverTimestamp()
+      });
+      $("betaForm").reset();
+      showMsg("신청되었습니다. 관리자가 확인한 뒤 입력하신 휴대폰 번호로 참여 안내 문자를 보내드립니다.", true);
+    }catch(err){
+      if(err && err.code==="permission-denied"){
+        showMsg("이미 신청된 Google 계정입니다. 참여 안내 문자를 보내드릴 때까지 조금만 기다려 주세요.", false);
+      }else{
+        showMsg("신청 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.", false);
+      }
+    }finally{
+      btn.disabled=false; btn.textContent="테스트 참여하기";
+    }
+  });
+</script>
+</body>
+</html>

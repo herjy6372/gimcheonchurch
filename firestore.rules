@@ -70,6 +70,25 @@ service cloud.firestore {
       allow update: if false;
     }
 
+    // 성경&찬양 앱 비공개 테스트 신청 (app-beta.html 신청서)
+    // 누구나 로그인 없이 신청(생성)만 가능. 문서 ID = 소문자 이메일이라 같은 계정은 한 번만 신청됨
+    // (이미 있는 문서에 다시 쓰면 update로 처리되어 거절됨). 열람·처리·삭제는 관리자만.
+    match /testerRequests/{email} {
+      allow create: if request.resource.data.keys().hasOnly(['email','name','phone','consent','status','createdAt'])
+                    && request.resource.data.email == email
+                    && email.size() <= 100
+                    && email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() >= 1
+                    && request.resource.data.name.size() <= 30
+                    && request.resource.data.phone is string
+                    && request.resource.data.phone.matches('^01[0-9]{8,9}$')
+                    && request.resource.data.consent == true
+                    && request.resource.data.status == 'pending'
+                    && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if isAdmin();
+    }
+
     // 사이트 설정 (자동승인 모드 등, 민감정보 없음)
     match /settings/{id} {
       // 문서 하나 조회만 공개 허용(회원가입 화면에서 로그인 전 확인용). list는 막음.

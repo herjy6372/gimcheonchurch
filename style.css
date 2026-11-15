@@ -438,3 +438,45 @@ footer .copy{margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,
   .album-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
   .intro-text{font-size:16px;}
 }
+
+/* ===== 2026년 표어 ===== */
+.motto{background:linear-gradient(180deg,#f6efe1,#faf7f1);border-bottom:1px solid var(--line);text-align:center;padding:38px 0 34px;}
+.motto-year{display:inline-block;font-size:13px;font-weight:800;letter-spacing:2px;color:var(--gold);border:1.5px solid var(--gold-soft);border-radius:999px;padding:4px 14px;}
+.motto-text{margin-top:14px;font-size:clamp(22px,3.6vw,32px);font-weight:800;color:var(--navy);letter-spacing:-.5px;line-height:1.4;word-break:keep-all;}
+.motto-ref{display:block;margin-top:8px;font-size:15px;color:var(--muted);font-weight:600;}
+
+/* ===== 성경&찬양 앱 비공개 테스트 ===== */
+.app-beta{background:var(--white);}
+.beta-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
+.beta-info h3,.beta-form h3{font-size:20px;color:var(--navy);font-weight:800;margin-bottom:14px;letter-spacing:-.3px;}
+.beta-features{list-style:none;display:grid;gap:8px;margin-bottom:18px;}
+.beta-features li{background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-weight:600;}
+.beta-notice{background:#fbf0dd;border:1px solid #f0dcb3;border-radius:12px;padding:14px 16px;margin-bottom:18px;}
+.beta-notice strong{color:#8a5d10;}
+.beta-notice p{margin-top:4px;font-size:14px;color:#6b5a3a;}
+.beta-steps{list-style:none;display:grid;gap:10px;margin-bottom:18px;}
+.beta-steps li{display:flex;gap:10px;align-items:flex-start;font-size:15px;}
+.beta-steps li span{flex:0 0 26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.beta-form{background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:26px 24px;box-shadow:var(--shadow);}
+.beta-consent{margin:4px 0 12px;font-size:14px;}
+.beta-consent label{display:flex;gap:8px;align-items:center;font-weight:700;color:#444;cursor:pointer;}
+.beta-consent input{width:18px;height:18px;}
+.beta-consent details{margin-top:6px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;}
+.beta-consent summary{cursor:pointer;font-size:13px;color:var(--navy);font-weight:700;}
+.beta-consent ul{margin:8px 0 2px 18px;font-size:13px;color:#555;display:grid;gap:4px;}
+.beta-msg{min-height:0;font-size:14px;font-weight:600;border-radius:10px;}
+.beta-msg.ok{background:#eaf6ee;color:#1e7e46;padding:10px 12px;margin-bottom:8px;}
+.beta-msg.err{background:#fbecea;color:#a3452f;padding:10px 12px;margin-bottom:8px;}
+@media(max-width:820px){.beta-grid{grid-template-columns:1fr;}}
+
+/* ===== 메인: 성경&찬양 앱 배너 ===== */
+.app-banner-wrap{padding:26px 0 0;background:var(--cream);}
+.app-banner{display:flex;align-items:center;gap:18px;background:linear-gradient(120deg,#eaf6e4,#f6fbf2);border:1px solid #cfe6c3;border-radius:16px;padding:16px 20px;box-shadow:var(--shadow);transition:.2s;color:var(--ink);}
+.app-banner:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(31,58,95,.16);}
+.app-banner img{flex:0 0 64px;width:64px;height:64px;border-radius:14px;box-shadow:0 4px 12px rgba(0,0,0,.12);background:#fff;}
+.app-banner-text{flex:1;min-width:0;}
+.app-banner-tag{display:inline-block;font-size:11px;font-weight:800;color:#2e7d32;background:#fff;border:1px solid #b9dcae;border-radius:999px;padding:2px 10px;}
+.app-banner-text strong{display:block;margin-top:4px;font-size:18px;color:var(--navy);font-weight:800;letter-spacing:-.3px;}
+.app-banner-text p{margin-top:2px;font-size:14px;color:#55624f;}
+.app-banner-btn{flex:0 0 auto;background:var(--navy);color:#fff;font-weight:800;font-size:14px;border-radius:999px;padding:10px 18px;}
+@media(max-width:600px){.app-banner{flex-wrap:wrap;gap:12px;padding:14px 16px;}.app-banner img{width:52px;height:52px;flex-basis:52px;}.app-banner-btn{width:100%;text-align:center;}}
