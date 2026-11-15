@@ -100,7 +100,7 @@
         앱 비공개 테스트 신청
         <button class="btn-mini approve" id="copyTesterEmailsBtn" style="font-size:13px;">대기 이메일 복사</button>
       </h2>
-      <p style="margin:-6px 0 14px;font-size:13px;color:#777;">① Play Console → 테스트 → 비공개 테스트 → 테스터 목록에 이메일을 추가합니다. ② '문자'를 눌러 신청자에게 참여 안내 문자를 보냅니다(휴대폰에서는 문자 앱이 열리고, 문자 내용은 복사도 됩니다). ③ '등록 완료'를 누릅니다. 테스트가 끝나면 신청 정보를 삭제해 주세요.</p>
+      <p style="margin:-6px 0 14px;font-size:13px;color:#777;">① Play Console → 테스트 → 비공개 테스트 → 테스터 목록에 이메일을 추가합니다. ② 개인 휴대폰으로 신청자에게 참여 안내 문자를 보냅니다. (참여 링크: https://play.google.com/apps/testing/com.terablack.churchpraise) ③ '등록 완료'를 누릅니다. 테스트가 끝나면 신청 정보를 삭제해 주세요.</p>
       <div id="testerList" class="admin-list"></div>
       <p id="testerEmpty" class="album-empty" style="display:none;">신청 내역이 없습니다.</p>
     </div>
@@ -320,13 +320,6 @@
 
   // 성경&찬양 앱 비공개 테스트 신청 목록
   let pendingTesterEmails = [];
-  const TESTER_OPT_IN_URL = "https://play.google.com/apps/testing/com.terablack.churchpraise";
-
-  function testerSmsText(name){
-    return "[김천침례교회] "+(name||"")+"님, 성경&찬양 앱 비공개 테스트에 등록되었습니다.\n"
-      +"아래 링크를 눌러 '테스터 되기'를 선택한 뒤 Play 스토어에서 설치해 주세요. (신청하신 Google 계정으로 로그인된 Android 휴대폰에서 열어 주세요)\n"
-      +TESTER_OPT_IN_URL;
-  }
 
   function formatDate(ts){
     if(!ts || !ts.toDate) return "";
@@ -354,13 +347,6 @@
       info.innerHTML='<strong>'+esc(r.name)+'</strong> '+badge+'<br><span class="email">'+esc(r.email)+'</span><br><span class="email">'+esc([r.phone, formatDate(r.createdAt)].filter(Boolean).join(" · "))+'</span>';
       item.appendChild(info);
       const btns=document.createElement("div"); btns.className="admin-btns";
-      // 참여 안내 문자 (휴대폰: 문자 앱 열기, 모든 기기: 문자 내용 복사)
-      const sms=document.createElement("a"); sms.className="btn-mini approve"; sms.textContent="문자";
-      sms.style.cssText="display:inline-block;margin-right:8px;";
-      const smsText=testerSmsText(r.name);
-      sms.href="sms:"+encodeURIComponent(r.phone||"")+"?body="+encodeURIComponent(smsText);
-      sms.onclick=()=>{ try{ navigator.clipboard.writeText(smsText); }catch(e){ /* 무시 */ } };
-      btns.appendChild(sms);
       if(r.status!=="added"){
         const done=document.createElement("button"); done.className="btn-mini approve"; done.textContent="등록 완료";
         done.onclick=async()=>{ done.disabled=true; await updateDoc(doc(db,"testerRequests",r.id),{status:"added"}); loadTesterRequests(); };
